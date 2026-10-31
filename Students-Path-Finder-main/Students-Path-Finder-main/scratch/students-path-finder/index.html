@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Students Path Finder | Explore Colleges & Real Fees From Home</title>
+  <meta name="description" content="After 10th Class, find upcoming Junior Colleges, Polytechnic Diplomas & Degrees with 100% verified real fees, real photos, and ratings online without spending money on travelling.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+  
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('spf_theme') || 'light';
+        document.documentElement.setAttribute('data-theme', saved);
+      } catch (e) {}
+    })();
+  </script>
+
+</head>
+<body>
+  
+  <!-- Top Announcement & Portal Switcher -->
+  <div class="top-notice-bar">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+      <div class="top-notice-content">
+        <span class="top-notice-pill"><i class="fas fa-sparkles"></i> 10th Pass Direct Admissions</span>
+        <span>Find real fees, photos, and ratings online without travelling to colleges!</span>
+      </div>
+      <div class="top-portal-switch">
+        <a href="college-dashboard.html" class="portal-switch-link" title="Open College Admin Portal">
+          <i class="fas fa-university"></i> Switch to College Portal
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-compass"></i>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">Students <span>Path Finder</span></span>
+          <span class="logo-tagline">10th to College & Fee Portal</span>
+        </div>
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link active">
+          <i class="fas fa-home"></i> Home
+        </a>
+        <a href="colleges.html" class="nav-link ">
+          <i class="fas fa-graduation-cap"></i> Explore Colleges
+        </a>
+        <a href="compare.html" class="nav-link ">
+          <i class="fas fa-balance-scale"></i> Compare
+          <span class="badge badge-accent compare-badge-count" style="display: none; padding: 0.1rem 0.45rem; font-size: 0.68rem;">0</span>
+        </a>
+        <a href="colleges.html?shortlisted=true" class="nav-link">
+          <i class="fas fa-heart text-danger"></i> Shortlist
+          <span class="badge badge-danger bookmark-badge-count" style="display: none; padding: 0.1rem 0.45rem; font-size: 0.68rem;">0</span>
+        </a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Theme Toggle Button (Dark / Light) -->
+        <button class="theme-toggle-btn" onclick="Theme.toggle()" title="Toggle Dark/Light Mode">
+          <i class="fas fa-moon text-primary"></i> <span class="theme-text">Dark</span>
+        </button>
+
+        <div id="navUserContainer" style="display: flex; align-items: center; gap: 0.6rem;"></div>
+        <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('active')">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-pill">
+            <i class="fas fa-sparkles"></i> For 10th Passed Students & Parents
+          </div>
+          <h1>
+            Know College <span class="gradient-text">Fees & Real Photos</span> From Home. No Travel Wasted!
+          </h1>
+          <p class="hero-lead">
+            Searching for colleges offline wastes days of your vacation and thousands in travel costs. <strong>Students Path Finder</strong> brings authentic college fees, real campus photos, course streams, and 10th GPA scholarship calculators directly to your screen.
+          </p>
+
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="colleges.html" class="btn btn-primary btn-lg">
+              <i class="fas fa-search"></i> Explore All Colleges & Fees
+            </a>
+            <a href="compare.html" class="btn btn-outline btn-lg">
+              <i class="fas fa-balance-scale"></i> Compare 2+ Colleges
+            </a>
+          </div>
+
+          <div class="hero-stats-row">
+            <div class="hero-stat">
+              <h3 style="color: var(--primary);">₹0 Travel</h3>
+              <p>Save travel stress & physical visits</p>
+            </div>
+            <div class="hero-stat">
+              <h3 style="color: var(--success-dark);">100% Direct</h3>
+              <p>Fees updated live by college admins</p>
+            </div>
+            <div class="hero-stat">
+              <h3 style="color: var(--accent-hover);">Up to 40%</h3>
+              <p>Scholarships based on 10th GPA</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-search-card">
+          <div class="search-title">
+            <h3><i class="fas fa-filter text-primary"></i> Find Colleges Instantly</h3>
+            <span class="badge badge-success"><i class="fas fa-bolt"></i> Fast Search</span>
+          </div>
+          <form onsubmit="handleHeroSearch(event)">
+            <div class="form-group">
+              <label class="form-label">Select Your Target Stream (After 10th)</label>
+              <select class="form-control" id="heroStreamSelect">
+                <option value="All">All Streams (Inter, Polytechnic, Degree)</option>
+                <option value="MPC">Intermediate MPC (Maths, Physics, Chem)</option>
+                <option value="BiPC">Intermediate BiPC (Biology, Physics, Chem)</option>
+                <option value="MEC">Intermediate MEC (Maths, Economics, Commerce)</option>
+                <option value="CEC">Intermediate CEC (Civics, Economics, Commerce)</option>
+                <option value="Polytechnic">Polytechnic Diploma (Engineering)</option>
+                <option value="B.Sc">Degree / Graduate Programs</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">City / Educational Hub</label>
+              <select class="form-control" id="heroCitySelect">
+                <option value="All">All Cities (Hyderabad, Secunderabad, etc.)</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Secunderabad">Secunderabad</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Preferred Maximum Annual Budget</label>
+              <select class="form-control" id="heroBudgetSelect">
+                <option value="999999">Any Budget / Free Govt</option>
+                <option value="50000">Under ₹50,000 / year</option>
+                <option value="100000">Under ₹1,00,000 / year</option>
+                <option value="175000">Under ₹1,75,000 / year</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 1rem;">
+              <i class="fas fa-search"></i> View Colleges & Real Fees
+            </button>
+          </form>
+
+          <div style="margin-top: 1.5rem; padding: 0.85rem; background: var(--bg-subtle); border-radius: var(--radius-md); font-size: 0.82rem; display: flex; align-items: center; gap: 0.6rem; border: 1px dashed var(--border-color);">
+            <div class="live-pulse-dot"></div>
+            <div>
+              <strong>Live Reactive Portal:</strong> Whenever a college updates their fees in the College Portal, this portal synchronizes instantly!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section style="padding: 3.5rem 0 2rem; background: var(--bg-card); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <div style="text-align: center; max-width: 680px; margin: 0 auto 2.5rem;">
+        <span class="badge badge-primary">After 10th Class Options</span>
+        <h2 style="font-size: 2.2rem; margin: 0.6rem 0;">Which Path Do You Want to Take?</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Select your interest to instantly filter upcoming colleges, eligibility, and real fee structures.</p>
+      </div>
+
+      <div class="stream-grid">
+        <a href="colleges.html?stream=MPC" class="stream-card">
+          <div class="stream-icon" style="background: var(--primary-light); color: var(--primary);">
+            <i class="fas fa-atom"></i>
+          </div>
+          <h4>Inter MPC</h4>
+          <p>Maths, Physics, Chem for IIT-JEE, BITSAT & Engineering</p>
+        </a>
+
+        <a href="colleges.html?stream=BiPC" class="stream-card">
+          <div class="stream-icon" style="background: var(--success-light); color: var(--success);">
+            <i class="fas fa-dna"></i>
+          </div>
+          <h4>Inter BiPC</h4>
+          <p>Biology, Physics, Chem for NEET Medical & Pharmacy</p>
+        </a>
+
+        <a href="colleges.html?stream=MEC" class="stream-card">
+          <div class="stream-icon" style="background: var(--accent-light); color: var(--accent-hover);">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h4>Inter MEC</h4>
+          <p>Maths, Economics, Commerce for CA, IPMAT & Data</p>
+        </a>
+
+        <a href="colleges.html?stream=CEC" class="stream-card">
+          <div class="stream-icon" style="background: var(--purple-light); color: var(--purple);">
+            <i class="fas fa-landmark"></i>
+          </div>
+          <h4>Inter CEC</h4>
+          <p>Civics, Economics, Commerce for Civil Services & Law</p>
+        </a>
+
+        <a href="colleges.html?stream=Polytechnic" class="stream-card">
+          <div class="stream-icon" style="background: var(--info-light); color: var(--info);">
+            <i class="fas fa-cogs"></i>
+          </div>
+          <h4>Polytechnic Diploma</h4>
+          <p>3-Year Engineering Diplomas with direct lateral entry</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 3.5rem 0 4.5rem; background: var(--bg-main);">
+    <div class="container">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span class="badge badge-success"><i class="fas fa-check-circle"></i> Direct College Feeds</span>
+          <h2 style="font-size: 2.2rem; margin-top: 0.5rem;">Featured Colleges & Real Fee Details</h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Transparent fee breakups including tuition, hostel, transport, and real campus photos.</p>
+        </div>
+        <a href="colleges.html" class="btn btn-outline-primary">
+          View All Colleges <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="college-grid" id="featuredCollegesContainer"></div>
+    </div>
+  </section>
+
+  
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <div class="logo-icon" style="width: 2.2rem; height: 2.2rem; font-size: 1.1rem;">
+              <i class="fas fa-compass"></i>
+            </div>
+            <span>Students Path Finder</span>
+          </div>
+          <p style="margin-bottom: 1.25rem; font-size: 0.9rem; line-height: 1.6;">
+            Empowering 10th-grade students and parents to discover ideal junior colleges, diploma polytechnics, and undergraduate institutions with 100% verified real fees, real photos, and scholarship estimates from home.
+          </p>
+          <div style="display: flex; gap: 0.75rem; font-size: 1.1rem;">
+            <a href="#" style="color: #94a3b8;"><i class="fab fa-facebook"></i></a>
+            <a href="#" style="color: #94a3b8;"><i class="fab fa-twitter"></i></a>
+            <a href="#" style="color: #94a3b8;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color: #94a3b8;"><i class="fab fa-linkedin"></i></a>
+            <a href="#" style="color: #94a3b8;"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Popular Streams</h4>
+          <ul class="footer-links">
+            <li><a href="colleges.html?stream=MPC">Intermediate MPC (Maths)</a></li>
+            <li><a href="colleges.html?stream=BiPC">Intermediate BiPC (Medical)</a></li>
+            <li><a href="colleges.html?stream=MEC">Intermediate MEC (Commerce)</a></li>
+            <li><a href="colleges.html?stream=CEC">Intermediate CEC (Arts)</a></li>
+            <li><a href="colleges.html?stream=Polytechnic">Polytechnic Diplomas</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Portals & Tools</h4>
+          <ul class="footer-links">
+            <li><a href="colleges.html">Search Colleges & Fees</a></li>
+            <li><a href="compare.html">Compare Fees Side-by-Side</a></li>
+            <li><a href="student-login.html">Student Sign In</a></li>
+            <li><a href="college-login.html">College Partner Login</a></li>
+            <li><a href="college-dashboard.html">College Admin Dashboard</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>For Colleges & Institutes</h4>
+          <p style="font-size: 0.88rem; margin-bottom: 1rem;">
+            Are you an authorized college representative? Update your latest fee structures, courses, and admissions instantly.
+          </p>
+          <a href="college-login.html" class="btn btn-outline" style="border-color: rgba(255,255,255,0.25); color: #fff;">
+            <i class="fas fa-user-shield"></i> College Portal Access
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Students Path Finder. All Rights Reserved. Built for Stress-Free Admissions.</div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Fee Transparency Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Global Inquiry Modal -->
+  <div class="modal-overlay" id="inquiryModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">Request College Information & Callback</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;" id="inquiryCollegeNameDisplay">College</p>
+        </div>
+        <button class="modal-close-btn" onclick="closeInquiryModal()">&times;</button>
+      </div>
+      <form id="inquiryForm">
+        <input type="hidden" id="inquiryCollegeId">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Student Full Name *</label>
+            <input type="text" class="form-control" id="inquiryStudentName" required placeholder="Enter student name">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Contact Phone / WhatsApp *</label>
+              <input type="tel" class="form-control" id="inquiryPhone" required placeholder="+91 98765 43210">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="inquiryEmail" placeholder="student@gmail.com">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">10th Class GPA / Marks *</label>
+              <input type="text" class="form-control" id="inquiryGPA" required placeholder="e.g. 9.8 GPA or 92%">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Interested Stream *</label>
+              <select class="form-control" id="inquiryStream"></select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Hostel or Transport Preference</label>
+            <select class="form-control" id="inquiryResPreference">
+              <option value="Day Scholar + Bus Transport">Day Scholar with College Bus</option>
+              <option value="AC Residential Hostel">AC Residential Hostel</option>
+              <option value="Non-AC Residential Hostel">Non-AC Residential Hostel</option>
+              <option value="Own Transport / Walking">Own Transport / Day Scholar</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Specific Questions for Admissions Office</label>
+            <textarea class="form-control" id="inquiryMessage" rows="3" placeholder="Ask about scholarship concessions, installment plans, or book a free campus visit..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeInquiryModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit Inquiry Free</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/live-sync.js"></script>
+  <script src="js/student-portal.js"></script>
+  <script>
+    function renderFeaturedColleges() {
+      const container = document.getElementById('featuredCollegesContainer');
+      if (!container) return;
+      const colleges = Store.getColleges().slice(0, 3);
+      container.innerHTML = colleges.map(c => createCollegeCardHtml(c)).join('');
+    }
+
+    function handleHeroSearch(e) {
+      e.preventDefault();
+      const stream = document.getElementById('heroStreamSelect').value;
+      const city = document.getElementById('heroCitySelect').value;
+      const budget = document.getElementById('heroBudgetSelect').value;
+      window.location.href = `colleges.html?stream=${encodeURIComponent(stream)}&city=${encodeURIComponent(city)}&maxBudget=${budget}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderFeaturedColleges();
+    });
+  </script>
+</body>
+</html>

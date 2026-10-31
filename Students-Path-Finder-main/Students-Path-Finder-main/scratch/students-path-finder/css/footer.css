@@ -1,0 +1,365 @@
+/* ==========================================================================
+   Students Path Finder - Comprehensive Footer Design System
+   ========================================================================== */
+
+.footer {
+  background: #ffffff;
+  border-top: 1px solid var(--border-color);
+  padding: 4.5rem 0 2rem;
+  margin-top: auto;
+  color: var(--text-muted);
+  position: relative;
+  overflow: hidden;
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary-glow), var(--accent), transparent);
+  opacity: 0.7;
+}
+
+/* ---------- Responsive Footer Grid ---------- */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2.2fr 1.2fr 1.2fr 1.5fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Footer Brand & Logo ---------- */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+  text-decoration: none;
+}
+
+.footer-logo .logo-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--primary), #1d4ed8);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+.footer-logo span {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.3px;
+}
+
+.footer-desc {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  max-width: 380px;
+}
+
+/* ---------- Column Titles ---------- */
+.footer-col h4 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1.35rem;
+  position: relative;
+  display: inline-block;
+  letter-spacing: -0.2px;
+}
+
+.footer-col h4::after {
+  content: "";
+  position: absolute;
+  bottom: -0.45rem;
+  left: 0;
+  width: 26px;
+  height: 2.5px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+/* ---------- Footer Navigation Links ---------- */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-links li {
+  display: flex;
+  align-items: center;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.footer-links a::before {
+  content: "›";
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--text-light);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+.footer-links a:hover::before {
+  color: var(--primary);
+  transform: translateX(2px);
+}
+
+/* ---------- Newsletter & Updates Box ---------- */
+.footer-newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.footer-newsletter-form p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.footer-input-row {
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.footer-input-row .form-control {
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  padding: 0.65rem 0.9rem;
+}
+
+.footer-input-row .btn {
+  padding: 0.65rem 1.1rem;
+  font-size: 0.88rem;
+  flex-shrink: 0;
+}
+
+/* ---------- Social Media Pills ---------- */
+.footer-social-row {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.footer-social-btn {
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.footer-social-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px var(--primary-glow);
+}
+
+/* ---------- Trust Badges Strip ---------- */
+.footer-trust-strip {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-top: 1px dashed var(--border-color);
+  border-bottom: 1px dashed var(--border-color);
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.footer-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 600;
+}
+
+.footer-trust-item i {
+  color: var(--success-dark);
+  font-size: 1rem;
+}
+
+/* ---------- Footer Bottom Bar ---------- */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-bottom-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color var(--transition-fast);
+}
+
+.footer-bottom-links a:hover {
+  color: var(--primary);
+}
+
+.back-to-top-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.back-to-top-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* ==================== DARK MODE FOOTER ==================== */
+[data-theme="dark"] .footer {
+  background: #090e18;
+  border-top-color: #1e293b;
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .footer-logo span,
+[data-theme="dark"] .footer-col h4 {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .footer-desc,
+[data-theme="dark"] .footer-links a,
+[data-theme="dark"] .footer-bottom-links a,
+[data-theme="dark"] .footer-bottom {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .footer-links a:hover,
+[data-theme="dark"] .footer-bottom-links a:hover {
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .footer-social-btn {
+  background: #131d2e;
+  border-color: #26354f;
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .footer-social-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .footer-trust-strip {
+  border-top-color: #1e293b;
+  border-bottom-color: #1e293b;
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .back-to-top-btn {
+  background: #131d2e;
+  border-color: #26354f;
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .back-to-top-btn:hover {
+  background: #1e2d48;
+  color: #60a5fa;
+  border-color: var(--primary);
+}
+
+/* Responsive Footer Queries */
+@media (max-width: 992px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    padding: 3rem 0 1.5rem;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  .footer-bottom-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

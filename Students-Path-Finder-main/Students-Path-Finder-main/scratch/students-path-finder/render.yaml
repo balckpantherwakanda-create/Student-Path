@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: students-path-finder
+    runtime: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: python backend/app.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.0
+      - key: PORT
+        value: 5000
+    plan: free

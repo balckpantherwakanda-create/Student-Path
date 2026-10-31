@@ -1,0 +1,423 @@
+/* ==========================================================================
+   Students Path Finder - College Partner Dashboard & Management Portal
+   Fully responsive with hardened Dark Mode compatibility
+   ========================================================================== */
+
+/* ---------- Dashboard Base & Body ---------- */
+body.dashboard-body,
+[data-theme="dark"] body.dashboard-body {
+  background-color: var(--bg-main) !important;
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+/* ---------- Admin Navbar ---------- */
+.admin-navbar {
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
+  color: #ffffff;
+  position: relative;
+  z-index: 50;
+}
+
+.admin-switcher-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #1e293b;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid #334155;
+}
+
+.admin-switcher-select {
+  background: transparent;
+  color: #ffffff;
+  border: none;
+  font-size: 0.84rem;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+  padding-right: 0.5rem;
+}
+
+.admin-switcher-select option {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+/* ---------- Dashboard Hero Header ---------- */
+.dashboard-hero-header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.75rem 0;
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.dashboard-hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.dash-college-title {
+  font-size: 2.1rem;
+  color: var(--text-main);
+  margin: 0.25rem 0 0.2rem;
+  letter-spacing: -0.5px;
+}
+
+.dash-college-subtitle {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+/* ---------- Dashboard Stats Grid ---------- */
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.dash-stat-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  transition: all var(--transition-normal);
+}
+
+.dash-stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+.dash-stat-icon {
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.dash-stat-card:hover .dash-stat-icon {
+  transform: scale(1.08);
+}
+
+/* Light Mode Icon Themes */
+.dash-stat-icon-blue {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.dash-stat-icon-amber {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.dash-stat-icon-green {
+  background: #ecfdf5;
+  color: #10b981;
+}
+
+.dash-stat-icon-purple {
+  background: #f5f3ff;
+  color: #8b5cf6;
+}
+
+.dash-stat-info h3 {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+.dash-stat-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ---------- Live Action Instructions Banner ---------- */
+.dashboard-live-banner {
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  color: #ffffff;
+  padding: 1.35rem 1.75rem;
+  border-radius: var(--radius-lg);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.35);
+}
+
+.dashboard-live-banner strong {
+  color: #fef08a;
+}
+
+/* ---------- Fee Structure Editor Box ---------- */
+.fee-editor-box {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2.5rem;
+  transition: all var(--transition-normal);
+}
+
+.fee-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.live-fee-preview-box {
+  background: var(--bg-subtle);
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  text-align: right;
+  min-width: 220px;
+}
+
+.live-fee-preview-label {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.live-fee-preview-value {
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: var(--primary);
+  font-family: 'Outfit', sans-serif;
+}
+
+.fee-inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.35rem;
+  margin-bottom: 1.75rem;
+}
+
+/* ---------- General Card Components in Dashboard ---------- */
+.card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+  transition: all var(--transition-normal);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1.75rem;
+  border-bottom: 1px solid var(--border-color);
+  background: transparent;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.card-header h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
+}
+
+.card-body {
+  padding: 1.75rem;
+}
+
+/* Inquiries Table In Dashboard */
+.dashboard-table-container {
+  overflow-x: auto;
+}
+
+.compare-table select.form-control {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+/* Gallery Manager Grid */
+.dashboard-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.gallery-admin-item {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  height: 125px;
+  background: #0f172a;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast);
+}
+
+.gallery-admin-item:hover {
+  transform: scale(1.03);
+}
+
+.gallery-admin-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-admin-badge {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+  background: rgba(15, 23, 42, 0.8);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+/* ==================== HARDENED DARK MODE RULES ==================== */
+[data-theme="dark"] .dashboard-hero-header {
+  background: #111927 !important;
+  border-bottom-color: #1e293b !important;
+}
+
+[data-theme="dark"] .dash-college-title {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .dash-college-subtitle {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .dash-stat-card {
+  background: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .dash-stat-info h3 {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .dash-stat-info p {
+  color: #94a3b8 !important;
+}
+
+/* Dark Mode Icon Luminescence */
+[data-theme="dark"] .dash-stat-icon-blue {
+  background: rgba(37, 99, 235, 0.18) !important;
+  color: #60a5fa !important;
+  border: 1px solid rgba(37, 99, 235, 0.3);
+}
+
+[data-theme="dark"] .dash-stat-icon-amber {
+  background: rgba(245, 158, 11, 0.18) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+[data-theme="dark"] .dash-stat-icon-green {
+  background: rgba(16, 185, 129, 0.18) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+[data-theme="dark"] .dash-stat-icon-purple {
+  background: rgba(139, 92, 246, 0.18) !important;
+  color: #a78bfa !important;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+[data-theme="dark"] .fee-editor-box,
+[data-theme="dark"] .card {
+  background: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .card-header {
+  border-bottom-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .card-header h3 {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .live-fee-preview-box {
+  background: #172236 !important;
+  border-color: #26354f !important;
+}
+
+[data-theme="dark"] .live-fee-preview-label {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .live-fee-preview-value {
+  color: #60a5fa !important;
+}
+
+[data-theme="dark"] .compare-table th {
+  background: #172236 !important;
+  color: #f8fafc !important;
+  border-bottom-color: #26354f !important;
+}
+
+[data-theme="dark"] .compare-table td {
+  border-bottom-color: #1e293b !important;
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .compare-table tr:hover td {
+  background: #172236 !important;
+}
+
+[data-theme="dark"] .gallery-admin-item {
+  border-color: #26354f;
+}
+
+@media (max-width: 768px) {
+  .dashboard-hero-header {
+    padding: 1.25rem 0;
+  }
+  .dash-college-title {
+    font-size: 1.65rem;
+  }
+  .fee-editor-box {
+    padding: 1.5rem 1.25rem;
+  }
+  .live-fee-preview-box {
+    width: 100%;
+    text-align: left;
+  }
+}

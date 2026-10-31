@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Side-by-Side Intermediate College & Fee Comparison | InterFeeFinder</title>
+  <meta name="description" content="Compare up to 3 intermediate junior colleges side-by-side on total fees, tuition, hostel, bus, scholarship discounts, and faculty.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+        <span>Inter</span>FeeFinder
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="colleges.html" class="nav-link">Explore Colleges</a>
+        <a href="calculator.html" class="nav-link">Fee & Scholarship Calc</a>
+        <a href="compare.html" class="nav-link active">Compare</a>
+        <a href="colleges.html?bookmarked=true" class="nav-link">
+          <i class="fas fa-heart" style="color: var(--danger);"></i> Shortlist
+          <span class="badge badge-danger bookmark-count-badge" style="display: none;">0</span>
+        </a>
+      </div>
+
+      <div class="nav-actions">
+        <button onclick="window.print()" class="btn btn-outline btn-sm">
+          <i class="fas fa-print"></i> Print Comparison
+        </button>
+        <a href="colleges.html" class="btn btn-primary btn-sm">
+          <i class="fas fa-plus"></i> Add College
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section style="background: var(--white); padding: 30px 0; border-bottom: 1px solid var(--gray-200);">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <span class="badge badge-primary" style="margin-bottom: 6px;">Side-by-Side Analysis</span>
+          <h1 style="font-size: 1.8rem;">Compare Junior Colleges & Fee Structures</h1>
+          <p style="color: var(--gray-600); font-size: 0.95rem;">
+            Compare fees, coaching programs, hostel facilities, and scholarships across selected campuses.
+          </p>
+        </div>
+
+        <!-- Quick College Adder Dropdown -->
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <select id="quickAddSelect" class="form-group select" style="padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-md);" onchange="handleQuickAdd(this.value)">
+            <option value="">+ Add a college to compare...</option>
+            <!-- Populated by JS -->
+          </select>
+          <button onclick="clearCompareList()" class="btn btn-outline btn-sm" title="Clear all">
+            <i class="fas fa-trash-alt"></i> Clear
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Comparison Matrix Container -->
+  <div class="container" style="margin-top: 30px; margin-bottom: 80px;">
+    
+    <div id="compareMatrixContainer">
+      <!-- Populated via JS -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="compareEmptyState" style="display: none; text-align: center; padding: 70px 20px; background: var(--white); border-radius: var(--radius-xl); border: 1px dashed var(--gray-300);">
+      <div style="font-size: 3.5rem; color: var(--gray-300); margin-bottom: 16px;">
+        <i class="fas fa-columns"></i>
+      </div>
+      <h3 style="font-size: 1.5rem; margin-bottom: 8px;">No Colleges Selected for Comparison Yet</h3>
+      <p style="color: var(--gray-600); max-width: 480px; margin: 0 auto 24px;">
+        Select 2 or 3 colleges from our college exploration catalog or pick from the dropdown above to compare their fees and features side-by-side.
+      </p>
+      <a href="colleges.html" class="btn btn-primary btn-lg">
+        <i class="fas fa-search"></i> Browse Colleges to Compare
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding: 0;">
+        <div>© 2026 InterFeeFinder. Dedicated to helping students and parents save travel money.</div>
+        <div><a href="index.html" style="color: #fff; text-decoration: underline;">Back to Home</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Default to 2 colleges if comparison is empty on first arrival
+      if (AppState.compareList.length === 0) {
+        AppState.compareList = ['sri-chaitanya-madhapur', 'narayana-kphb'];
+        localStorage.setItem('inter_compare', JSON.stringify(AppState.compareList));
+      }
+
+      populateQuickAddDropdown();
+      renderCompareMatrix();
+    });
+
+    function populateQuickAddDropdown() {
+      const select = document.getElementById('quickAddSelect');
+      if (!select) return;
+
+      select.innerHTML = '<option value="">+ Add a college to compare...</option>' + 
+        COLLEGES_DATA.map(c => `
+          <option value="${c.id}" ${AppState.compareList.includes(c.id) ? 'disabled' : ''}>
+            ${c.name} - ${c.branch} (${formatINR(c.feeStructure.totalDayScholar)})
+          </option>
+        `).join('');
+    }
+
+    function handleQuickAdd(collegeId) {
+      if (!collegeId) return;
+      toggleCompare(collegeId);
+      populateQuickAddDropdown();
+      renderCompareMatrix();
+    }
+
+    function renderCompareMatrix() {
+      const container = document.getElementById('compareMatrixContainer');
+      const emptyState = document.getElementById('compareEmptyState');
+      const selected = COLLEGES_DATA.filter(c => AppState.compareList.includes(c.id));
+
+      if (selected.length === 0) {
+        container.innerHTML = '';
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+
+      container.innerHTML = `
+        <div style="overflow-x: auto;">
+          <table class="compare-matrix-table">
+            <thead>
+              <tr>
+                <th class="compare-param-col">Parameters</th>
+                ${selected.map(c => `
+                  <th style="width: ${Math.floor(100 / (selected.length + 1))}%;">
+                    <div style="position: relative;">
+                      <button onclick="removeFromCompare('${c.id}'); populateQuickAddDropdown();" 
+                              style="position: absolute; top: -8px; right: -8px; width: 26px; height: 26px; border-radius: 50%; background: #fee2e2; color: #ef4444; display: flex; align-items: center; justify-content: center;" 
+                              title="Remove from comparison">
+                        <i class="fas fa-times"></i>
+                      </button>
+                      <img src="${c.image}" style="height: 120px; width: 100%; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 12px;" />
+                      <div style="font-size: 1.15rem; font-weight: 700; color: var(--gray-900);">${c.name}</div>
+                      <div style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">${c.branch}</div>
+                      <div style="font-size: 0.8rem; color: var(--gray-500); margin-top: 4px;"><i class="fas fa-map-marker-alt"></i> ${c.city}</div>
+                    </div>
+                  </th>
+                `).join('')}
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Total Fee -->
+              <tr style="background: var(--primary-light);">
+                <td class="compare-param-col" style="color: var(--primary-dark); font-size: 1rem;">Total Day Scholar Fee</td>
+                ${selected.map(c => `
+                  <td style="font-size: 1.4rem; font-weight: 800; font-family: 'Outfit', sans-serif; color: ${c.feeStructure.totalDayScholar === 0 ? 'var(--secondary)' : 'var(--primary)'};">
+                    ${formatINR(c.feeStructure.totalDayScholar)}
+                    <div style="font-size: 0.75rem; font-weight: 500; color: var(--gray-600);">Per Annum (All Inclusive)</div>
+                  </td>
+                `).join('')}
+              </tr>
+
+              <!-- Tuition Fee -->
+              <tr>
+                <td class="compare-param-col">Tuition Fee Only</td>
+                ${selected.map(c => `
+                  <td style="font-weight: 700; font-size: 1.05rem;">${formatINR(c.feeStructure.tuitionFee)}</td>
+                `).join('')}
+              </tr>
+
+              <!-- Competitive Coaching Fee -->
+              <tr>
+                <td class="compare-param-col">Coaching Fee (JEE/NEET/CA)</td>
+                ${selected.map(c => `
+                  <td>${formatINR(c.feeStructure.coachingFee)}</td>
+                `).join('')}
+              </tr>
+
+              <!-- Hostel AC & Non-AC -->
+              <tr>
+                <td class="compare-param-col">Hostel / Boarding Fee</td>
+                ${selected.map(c => `
+                  <td>
+                    ${c.feeStructure.hostelFeeNonAC > 0 ? `
+                      <div><strong>Non-AC:</strong> ${formatINR(c.feeStructure.hostelFeeNonAC)}/yr</div>
+                      <div><strong>AC:</strong> ${formatINR(c.feeStructure.hostelFeeAC)}/yr</div>
+                    ` : `
+                      <span class="badge ${c.feeStructure.totalDayScholar === 0 ? 'badge-success' : 'badge-warning'}">
+                        ${c.feeStructure.totalDayScholar === 0 ? 'Free Govt Hostel' : 'Day Scholar Only'}
+                      </span>
+                    `}
+                  </td>
+                `).join('')}
+              </tr>
+
+              <!-- Bus Transport Fee -->
+              <tr>
+                <td class="compare-param-col">Bus Transport (Average)</td>
+                ${selected.map(c => `
+                  <td>${c.feeStructure.busFeeAvg > 0 ? `${formatINR(c.feeStructure.busFeeAvg)}/yr` : (c.feeStructure.totalDayScholar === 0 ? 'Free RTC Student Pass' : 'N/A')}</td>
+                `).join('')}
+              </tr>
+
+              <!-- Installments -->
+              <tr>
+                <td class="compare-param-col">Installment Options</td>
+                ${selected.map(c => `
+                  <td>
+                    <span class="badge badge-primary">${c.feeStructure.installmentsAllowed} Installments</span>
+                    <div style="font-size: 0.8rem; color: var(--gray-600); margin-top: 4px;">${c.feeStructure.installmentPlan}</div>
+                  </td>
+                `).join('')}
+              </tr>
+
+              <!-- 10th GPA Scholarships -->
+              <tr>
+                <td class="compare-param-col">10th GPA Scholarship Slabs</td>
+                ${selected.map(c => `
+                  <td>
+                    ${(c.scholarships || []).map(s => `
+                      <div style="font-size: 0.82rem; margin-bottom: 4px;">
+                        <span class="badge badge-success">${s.concessionPercentage}% Off</span> ${s.minGPA}+ GPA
+                      </div>
+                    `).join('')}
+                  </td>
+                `).join('')}
+              </tr>
+
+              <!-- Streams Available -->
+              <tr>
+                <td class="compare-param-col">Streams / Groups</td>
+                ${selected.map(c => `
+                  <td>
+                    <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                      ${c.streams.map(s => `<span class="stream-chip">${s}</span>`).join('')}
+                    </div>
+                  </td>
+                `).join('')}
+              </tr>
+
+              <!-- Coaching Programs -->
+              <tr>
+                <td class="compare-param-col">Entrance Coaching Focus</td>
+                ${selected.map(c => `
+                  <ul style="font-size: 0.85rem; color: var(--gray-700);">
+                    ${c.coachingOffered.map(co => `<li>• ${co}</li>`).join('')}
+                  </ul>
+                `).join('')}
+              </tr>
+
+              <!-- Past Results -->
+              <tr>
+                <td class="compare-param-col">Past Exam Results</td>
+                ${selected.map(c => `
+                  <div style="font-size: 0.85rem;">
+                    <div><strong>JEE:</strong> ${c.pastResults.topRankJEE}</div>
+                    <div><strong>NEET:</strong> ${c.pastResults.topRankNEET}</div>
+                    <div><strong>Board:</strong> ${c.pastResults.stateTopScores}</div>
+                  </div>
+                `).join('')}
+              </tr>
+
+              <!-- Rating & Reviews -->
+              <tr>
+                <td class="compare-param-col">Rating</td>
+                ${selected.map(c => `
+                  <td>
+                    <span class="badge badge-warning" style="font-size: 0.9rem;">
+                      <i class="fas fa-star"></i> ${c.rating} / 5.0
+                    </span>
+                    <span style="font-size: 0.8rem; color: var(--gray-500); margin-left: 6px;">(${c.reviewCount} reviews)</span>
+                  </td>
+                `).join('')}
+              </tr>
+
+              <!-- Actions -->
+              <tr>
+                <td class="compare-param-col">Enquiry & Profile</td>
+                ${selected.map(c => `
+                  <td>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                      <button onclick="openEnquiryModal('${c.id}')" class="btn btn-sm btn-primary" style="width: 100%;">
+                        <i class="fas fa-phone-alt"></i> Request Callback
+                      </button>
+                      <a href="college-detail.html?id=${c.id}" class="btn btn-sm btn-outline" style="width: 100%; justify-content: center;">
+                        View Full Details
+                      </a>
+                    </div>
+                  </td>
+                `).join('')}
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

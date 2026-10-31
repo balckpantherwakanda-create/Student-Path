@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InterFeeFinder | 10th to Intermediate College Fees & Admission Portal</title>
+  <meta name="description" content="Explore Intermediate colleges, compare real tuition, hostel & bus fees, calculate 10th GPA scholarships, and save money & travel time.">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==================== NAVIGATION BAR ==================== -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <span>Inter</span>FeeFinder
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="colleges.html" class="nav-link">Explore Colleges</a>
+        <a href="calculator.html" class="nav-link">Fee & Scholarship Calc</a>
+        <a href="compare.html" class="nav-link">Compare</a>
+        <a href="colleges.html?bookmarked=true" class="nav-link">
+          <i class="fas fa-heart" style="color: var(--danger);"></i> Shortlist
+          <span class="badge badge-danger bookmark-count-badge" style="display: none;">0</span>
+        </a>
+      </div>
+
+      <div class="nav-actions">
+        <a href="calculator.html" class="btn btn-outline btn-sm">
+          <i class="fas fa-calculator"></i> Scholarship Check
+        </a>
+        <a href="colleges.html" class="btn btn-primary btn-sm">
+          <i class="fas fa-search"></i> View Colleges
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-pill">
+            <i class="fas fa-sparkles"></i> For 10th Class Passed Students & Parents
+          </div>
+          <h1>
+            Know Intermediate College <span class="gradient-text">Fees From Home</span>. No Travel Wasted!
+          </h1>
+          <p class="hero-description">
+            Stop traveling in the summer heat and spending thousands on auto/bus fares just to get fee quotes. Explore verified Intermediate tuition fees, hostel, bus charges, and instant 10th marks scholarships in seconds.
+          </p>
+
+          <!-- Search Card -->
+          <div class="search-card">
+            <form id="heroSearchForm" onsubmit="handleHeroSearch(event)" class="search-inputs-grid">
+              <div class="search-input-group">
+                <i class="fas fa-search"></i>
+                <input type="text" id="heroSearchQuery" placeholder="College name, area, or coaching..." />
+              </div>
+              <div class="search-input-group">
+                <i class="fas fa-book-open"></i>
+                <select id="heroSearchStream">
+                  <option value="All">All Streams (MPC, BiPC...)</option>
+                  <option value="MPC">MPC (Maths, Phy, Chem)</option>
+                  <option value="BiPC">BiPC (Bio, Phy, Chem)</option>
+                  <option value="MEC">MEC (Maths, Econ, Com)</option>
+                  <option value="CEC">CEC (Civics, Econ, Com)</option>
+                  <option value="HEC">HEC (Humanities / Arts)</option>
+                  <option value="Vocational">Vocational Courses</option>
+                </select>
+              </div>
+              <div class="search-input-group">
+                <i class="fas fa-map-marker-alt"></i>
+                <select id="heroSearchCity">
+                  <option value="All Cities">All Locations</option>
+                  <option value="Hyderabad">Hyderabad</option>
+                  <option value="Secunderabad">Secunderabad</option>
+                  <option value="Vijayawada">Vijayawada</option>
+                  <option value="Guntur">Guntur</option>
+                  <option value="Warangal">Warangal</option>
+                  <option value="Visakhapatnam">Visakhapatnam</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg" style="height: 100%;">
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </form>
+          </div>
+
+          <div style="display: flex; gap: 20px; align-items: center; font-size: 0.9rem; color: var(--gray-600);">
+            <span><i class="fas fa-check-circle" style="color: var(--secondary);"></i> 100% Free to Use</span>
+            <span><i class="fas fa-check-circle" style="color: var(--secondary);"></i> Transparent Breakdowns</span>
+            <span><i class="fas fa-check-circle" style="color: var(--secondary);"></i> Verified 2026-27 Slabs</span>
+          </div>
+        </div>
+
+        <!-- Savings Live Estimator Widget -->
+        <div class="savings-card">
+          <div class="savings-header">
+            <div class="savings-title">
+              <i class="fas fa-wallet"></i> Travel & Time Saved
+            </div>
+            <span class="badge badge-success">Live Estimator</span>
+          </div>
+
+          <p style="font-size: 0.88rem; color: var(--gray-300); margin-bottom: 20px;">
+            Parents typically spend <strong>₹400–₹600</strong> in fuel/auto fares and <strong>4–5 hours</strong> visiting just ONE intermediate college. See how much you save with us:
+          </p>
+
+          <div class="savings-stats-row">
+            <div class="saving-box money">
+              <div class="label">Total Money Saved</div>
+              <div class="value" id="heroSavedMoney">₹2,700</div>
+              <div style="font-size: 0.75rem; color: var(--gray-400); margin-top: 4px;">In travel & application costs</div>
+            </div>
+            <div class="saving-box">
+              <div class="label">Hours Saved</div>
+              <div class="value" id="heroSavedHours">24 Hours</div>
+              <div style="font-size: 0.75rem; color: var(--gray-400); margin-top: 4px;">Zero standing in enquiry queues</div>
+            </div>
+          </div>
+
+          <div class="savings-calc-slider">
+            <label>
+              <span>Number of Colleges Explored:</span>
+              <strong id="heroCollegesCountLabel" style="color: #38bdf8;">6 Colleges</strong>
+            </label>
+            <input type="range" id="heroSavingsSlider" min="2" max="15" value="6" oninput="updateHeroSavingsWidget(this.value)" />
+          </div>
+
+          <div style="margin-top: 24px; text-align: center;">
+            <a href="calculator.html" class="btn btn-secondary" style="width: 100%;">
+              <i class="fas fa-calculator"></i> Calculate My 10th Marks Scholarship
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== QUICK STATS ==================== -->
+  <section class="stats-banner">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-icon blue"><i class="fas fa-university"></i></div>
+          <div class="stat-info">
+            <h3>50+</h3>
+            <p>Verified Junior Colleges</p>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon green"><i class="fas fa-rupee-sign"></i></div>
+          <div class="stat-info">
+            <h3>100%</h3>
+            <p>Accurate Fee Breakdown</p>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon orange"><i class="fas fa-award"></i></div>
+          <div class="stat-info">
+            <h3>Up to 75%</h3>
+            <p>10th GPA Scholarships</p>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon purple"><i class="fas fa-bus"></i></div>
+          <div class="stat-info">
+            <h3>120+</h3>
+            <p>Hostel & Bus Routes Tracked</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== INTERMEDIATE STREAMS GUIDE ==================== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-primary" style="margin-bottom: 12px;">Choose Your Future Pathway</span>
+        <h2>Explore Intermediate Streams & Courses</h2>
+        <p>Not sure which stream to select after 10th? Here is a breakdown of groups, coaching combinations, and future career choices.</p>
+      </div>
+
+      <div class="streams-grid" id="streamsContainer">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FEATURED COLLEGES ==================== -->
+  <section class="section" style="background: var(--white); border-top: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200);">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px;">
+        <div>
+          <span class="badge badge-success" style="margin-bottom: 8px;">Top Picks for 2026 Admissions</span>
+          <h2>Popular Intermediate Colleges</h2>
+          <p style="color: var(--gray-600);">Check full fee structures for top residential, day scholar, and government junior colleges.</p>
+        </div>
+        <a href="colleges.html" class="btn btn-outline-primary">
+          View All Colleges <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="colleges-grid" id="featuredCollegesContainer">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== THE PROBLEM WE SOLVE ==================== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-warning" style="margin-bottom: 8px;">Physical Visit vs Online Portal</span>
+        <h2>Why Waste Money Traveling College to College?</h2>
+        <p>See the massive difference between the old exhausting way and our instant smart portal.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1000px; margin: 0 auto;">
+        <!-- Old Physical Way -->
+        <div style="background: #fff; padding: 32px; border-radius: var(--radius-xl); border: 2px solid #fecaca; box-shadow: var(--shadow-md);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; color: var(--danger);">
+            <div style="width: 44px; height: 44px; background: #fee2e2; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+              <i class="fas fa-times"></i>
+            </div>
+            <h3 style="color: var(--danger); font-size: 1.3rem;">The Old Physical Way</h3>
+          </div>
+          <ul style="display: flex; flex-direction: column; gap: 14px; font-size: 0.95rem; color: var(--gray-700);">
+            <li style="display: flex; gap: 10px;"><i class="fas fa-minus-circle" style="color: var(--danger); margin-top: 4px;"></i> Travel 20–50 km across city in scorching summer heat</li>
+            <li style="display: flex; gap: 10px;"><i class="fas fa-minus-circle" style="color: var(--danger); margin-top: 4px;"></i> Spend ₹3,000–₹5,000 on autos, petrol, bus fares & food</li>
+            <li style="display: flex; gap: 10px;"><i class="fas fa-minus-circle" style="color: var(--danger); margin-top: 4px;"></i> Wait 1–2 hours at each college counter for fee brochures</li>
+            <li style="display: flex; gap: 10px;"><i class="fas fa-minus-circle" style="color: var(--danger); margin-top: 4px;"></i> Hidden charges for books, uniforms & coaching not disclosed</li>
+            <li style="display: flex; gap: 10px;"><i class="fas fa-minus-circle" style="color: var(--danger); margin-top: 4px;"></i> Tough to compare 5+ colleges sitting with messy paper brochures</li>
+          </ul>
+        </div>
+
+        <!-- Smart InterFeeFinder Way -->
+        <div style="background: linear-gradient(135deg, #f0fdf4, #ffffff); padding: 32px; border-radius: var(--radius-xl); border: 2px solid #86efac; box-shadow: var(--shadow-lg);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; color: var(--secondary);">
+            <div style="width: 44px; height: 44px; background: #dcfce7; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+              <i class="fas fa-check"></i>
+            </div>
+            <h3 style="color: var(--secondary); font-size: 1.3rem;">With InterFeeFinder</h3>
+          </div>
+          <ul style="display: flex; flex-direction: column; gap: 14px; font-size: 0.95rem; color: var(--gray-700);">
+            <li style="display: flex; gap: 10px;"><i class="fas fa-check-circle" style="color: var(--secondary); margin-top: 4px;"></i> Explore 50+ junior colleges right from your mobile or PC</li>
+            <li style="display: flex; gap: 10px;"><i class="fas fa-check-circle" style="color: var(--secondary); margin-top: 4px;"></i> 100% Free — Save 100% of travel expenses & fuel</li>
+            <li style="display: flex; gap: 10px;"><i class="fas fa-check-circle" style="color: var(--secondary); margin-top: 4px;"></i> Complete line-by-line breakdown (Tuition, Hostel, Bus, Coaching)</li>
+            <li style="display: flex; gap: 10px;"><i class="fas fa-check-circle" style="color: var(--secondary); margin-top: 4px;"></i> Calculate exact 10th GPA scholarship discounts instantly</li>
+            <li style="display: flex; gap: 10px;"><i class="fas fa-check-circle" style="color: var(--secondary); margin-top: 4px;"></i> Compare up to 3 colleges side-by-side on 1 screen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CALL TO ACTION ==================== -->
+  <section class="section" style="background: linear-gradient(135deg, var(--primary), var(--dark)); color: var(--white); text-align: center;">
+    <div class="container">
+      <h2 style="color: var(--white); font-size: 2.4rem; margin-bottom: 16px;">Ready to Find Your Ideal Intermediate College?</h2>
+      <p style="max-width: 650px; margin: 0 auto 32px; color: var(--gray-300); font-size: 1.1rem;">
+        Check fees, download prospectus, calculate scholarship waivers, or send direct inquiries without paying a single rupee for travel.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+        <a href="colleges.html" class="btn btn-secondary btn-lg">
+          <i class="fas fa-search"></i> Browse All Colleges
+        </a>
+        <a href="calculator.html" class="btn btn-outline btn-lg" style="background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3);">
+          <i class="fas fa-percent"></i> Calculate Scholarship
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo" style="color: var(--white);">
+            <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+            <span>Inter</span>FeeFinder
+          </a>
+          <p>
+            The dedicated college discovery and transparent fee explorer portal for students passing 10th Class and transitioning to Intermediate (+2).
+          </p>
+          <div style="display: flex; gap: 12px; font-size: 1.2rem;">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Popular Streams</h4>
+          <div class="footer-links">
+            <a href="colleges.html?stream=MPC">MPC (IIT-JEE / BITSAT)</a>
+            <a href="colleges.html?stream=BiPC">BiPC (NEET Medical)</a>
+            <a href="colleges.html?stream=MEC">MEC (CA Foundation)</a>
+            <a href="colleges.html?stream=CEC">CEC (Commerce & Law)</a>
+            <a href="colleges.html?stream=HEC">HEC (Civil Services)</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Top Cities</h4>
+          <div class="footer-links">
+            <a href="colleges.html?city=Hyderabad">Hyderabad Colleges</a>
+            <a href="colleges.html?city=Secunderabad">Secunderabad Colleges</a>
+            <a href="colleges.html?city=Vijayawada">Vijayawada Colleges</a>
+            <a href="colleges.html?city=Guntur">Guntur Colleges</a>
+            <a href="colleges.html?city=Warangal">Warangal Colleges</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="calculator.html">Scholarship Calculator</a>
+            <a href="compare.html">College Comparison Matrix</a>
+            <a href="colleges.html?type=Government">100% Free Govt Colleges</a>
+            <a href="colleges.html?gender=Girls">Girls Only Colleges</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 InterFeeFinder. Dedicated to helping students and parents make smart, travel-free educational decisions.</div>
+        <div>Made with <i class="fas fa-heart" style="color: var(--danger);"></i> for 10th Standard Students</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Handle Homepage initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Render Streams Grid
+      const streamsContainer = document.getElementById('streamsContainer');
+      if (streamsContainer) {
+        streamsContainer.innerHTML = STREAMS_DATA.map(st => `
+          <div class="stream-card">
+            <div>
+              <div class="stream-icon-box">
+                <i class="fas ${st.icon}"></i>
+              </div>
+              <h3>${st.name}</h3>
+              <p>${st.desc}</p>
+            </div>
+            <a href="colleges.html?stream=${st.id}" class="btn btn-outline-primary btn-sm" style="width: 100%; justify-content: center;">
+              Find ${st.id} Colleges & Fees <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        `).join('');
+      }
+
+      // 2. Render Featured Colleges (Top 6)
+      const featuredContainer = document.getElementById('featuredCollegesContainer');
+      if (featuredContainer) {
+        featuredContainer.innerHTML = COLLEGES_DATA.slice(0, 6).map(c => createCollegeCardHTML(c)).join('');
+      }
+    });
+
+    function handleHeroSearch(e) {
+      e.preventDefault();
+      const query = document.getElementById('heroSearchQuery').value.trim();
+      const stream = document.getElementById('heroSearchStream').value;
+      const city = document.getElementById('heroSearchCity').value;
+
+      const params = new URLSearchParams();
+      if (query) params.append('search', query);
+      if (stream !== 'All') params.append('stream', stream);
+      if (city !== 'All Cities') params.append('city', city);
+
+      window.location.href = `colleges.html?${params.toString()}`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration | Students Path Finder</title>
+  <meta name="description" content="Create your student account to discover colleges, calculate 10th GPA scholarships, and compare fees from home without travelling.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('spf_theme') || 'light';
+        document.documentElement.setAttribute('data-theme', saved);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body style="position: relative; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column;">
+  <!-- Ambient Floating Orbs -->
+  <div class="ambient-orb ambient-orb-1"></div>
+  <div class="ambient-orb ambient-orb-2"></div>
+  <div class="ambient-orb ambient-orb-3"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar" style="position: relative; z-index: 10;">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-compass"></i></div>
+        <div class="logo-text">
+          <span class="logo-title">Students <span>Path Finder</span></span>
+          <span class="logo-tagline">10th to College & Fee Portal</span>
+        </div>
+      </a>
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <button class="theme-toggle-btn" onclick="Theme.toggle()" title="Toggle Dark/Light Mode">
+          <i class="fas fa-moon text-primary"></i> <span class="theme-text">Dark</span>
+        </button>
+        <a href="index.html" class="btn btn-outline btn-sm"><i class="fas fa-arrow-left"></i> Back to Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Animated Main Signup Container -->
+  <div class="auth-page-wrapper" style="flex: 1; padding: 2.5rem 1.5rem;">
+    <div class="auth-card wide student-auth-card fade-in-up">
+      
+      <!-- Animated Header -->
+      <div class="auth-header" style="margin-bottom: 1.5rem;">
+        <div class="logo-icon animate-float" style="background: linear-gradient(135deg, var(--primary), #1d4ed8); color: white;">
+          <i class="fas fa-user-graduate"></i>
+        </div>
+        <h2>Join Students Path Finder</h2>
+        <p>Unlock transparent fee comparisons, real campus photos, and 10th GPA scholarships.</p>
+        
+        <!-- Interactive Avatar Selector -->
+        <div class="avatar-selection-row">
+          <div class="avatar-opt selected" onclick="selectAvatar(this, '🎓')" style="background: #eff6ff;" title="Student Scholar">🎓</div>
+          <div class="avatar-opt" onclick="selectAvatar(this, '🚀')" style="background: #fef3c7;" title="Achiever">🚀</div>
+          <div class="avatar-opt" onclick="selectAvatar(this, '⭐')" style="background: #ecfdf5;" title="Star">⭐</div>
+          <div class="avatar-opt" onclick="selectAvatar(this, '💡')" style="background: #f5f3ff;" title="Innovator">💡</div>
+        </div>
+      </div>
+
+      <div id="signupErrorAlert" class="auth-alert auth-alert-danger" style="display: none;">
+        <i class="fas fa-exclamation-circle"></i> <span id="signupErrorText">Registration error</span>
+      </div>
+
+      <form id="studentSignupForm" onsubmit="handleAnimatedStudentSignup(event)">
+        <!-- Step 1: Personal Info -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label required"><i class="fas fa-user text-primary"></i> Full Name</label>
+            <input type="text" class="form-control" id="regName" required placeholder="e.g. Sai Kiran Reddy">
+          </div>
+          <div class="form-group">
+            <label class="form-label required"><i class="fas fa-phone-alt text-success"></i> Phone / WhatsApp Number</label>
+            <input type="tel" class="form-control" id="regPhone" required placeholder="+91 98480 12345">
+          </div>
+        </div>
+
+        <!-- Step 2: Email & 10th GPA with Real-Time Scholarship Preview -->
+        <div class="form-row">
+          <div class="form-group" style="flex: 1.2;">
+            <label class="form-label required"><i class="fas fa-envelope text-info"></i> Email Address</label>
+            <input type="email" class="form-control" id="regEmail" required placeholder="student@gmail.com">
+          </div>
+          <div class="form-group" style="flex: 0.8;">
+            <label class="form-label required"><i class="fas fa-award text-accent"></i> 10th GPA / %</label>
+            <input type="text" class="form-control" id="regGPA" required placeholder="e.g. 9.8 or 94%" oninput="checkGpaScholarship(this.value)">
+          </div>
+        </div>
+
+        <!-- Live Animated Scholarship Concession Indicator -->
+        <div id="gpaScholarshipBadge" style="display: none;"></div>
+
+        <!-- Step 3: Interactive Stream Selection Pills -->
+        <div class="form-group" style="margin-top: 0.5rem;">
+          <label class="form-label" style="display: flex; justify-content: space-between;">
+            <span><i class="fas fa-layer-group text-purple"></i> Desired Stream (After 10th) *</span>
+            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 700;" id="streamSelectedLabel">Inter MPC</span>
+          </label>
+          <input type="hidden" id="regStream" value="MPC">
+          
+          <div class="stream-select-pills">
+            <div class="stream-pill-option selected" onclick="selectStreamPill(this, 'MPC')">
+              <i class="fas fa-atom" style="font-size: 1.2rem; display: block; margin-bottom: 0.2rem;"></i>
+              <div>Inter MPC</div>
+              <small style="font-size: 0.65rem; opacity: 0.8;">Engineering</small>
+            </div>
+
+            <div class="stream-pill-option" onclick="selectStreamPill(this, 'BiPC')">
+              <i class="fas fa-dna" style="font-size: 1.2rem; display: block; margin-bottom: 0.2rem;"></i>
+              <div>Inter BiPC</div>
+              <small style="font-size: 0.65rem; opacity: 0.8;">Medical</small>
+            </div>
+
+            <div class="stream-pill-option" onclick="selectStreamPill(this, 'MEC')">
+              <i class="fas fa-chart-line" style="font-size: 1.2rem; display: block; margin-bottom: 0.2rem;"></i>
+              <div>Inter MEC</div>
+              <small style="font-size: 0.65rem; opacity: 0.8;">Commerce/CA</small>
+            </div>
+
+            <div class="stream-pill-option" onclick="selectStreamPill(this, 'CEC')">
+              <i class="fas fa-landmark" style="font-size: 1.2rem; display: block; margin-bottom: 0.2rem;"></i>
+              <div>Inter CEC</div>
+              <small style="font-size: 0.65rem; opacity: 0.8;">Civics/Arts</small>
+            </div>
+
+            <div class="stream-pill-option" onclick="selectStreamPill(this, 'Polytechnic')">
+              <i class="fas fa-cogs" style="font-size: 1.2rem; display: block; margin-bottom: 0.2rem;"></i>
+              <div>Polytechnic</div>
+              <small style="font-size: 0.65rem; opacity: 0.8;">Diploma 3Y</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: City -->
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-map-marker-alt text-danger"></i> Current City / District</label>
+          <input type="text" class="form-control" id="regCity" placeholder="e.g. Hyderabad, Secunderabad, Warangal, Vijayawada">
+        </div>
+
+        <!-- Step 5: Password with Animated Strength Bar & Checklist -->
+        <div class="form-group">
+          <label class="form-label required"><i class="fas fa-lock text-primary"></i> Create Password</label>
+          <div class="password-field-wrapper">
+            <input type="password" class="form-control" id="regPass" required placeholder="Minimum 6 characters" oninput="checkPasswordStrength(this.value)">
+            <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility()" title="Show/Hide Password">
+              <i class="fas fa-eye" id="passToggleIcon"></i>
+            </button>
+          </div>
+
+          <div class="password-strength-container" style="margin-top: 0.5rem;">
+            <div class="strength-bar-track">
+              <div class="strength-bar-fill" id="strengthBarFill"></div>
+            </div>
+            <div class="strength-requirements">
+              <span class="strength-req-item" id="reqLen"><i class="far fa-circle"></i> 6+ chars</span>
+              <span class="strength-req-item" id="reqLetter"><i class="far fa-circle"></i> Letters</span>
+              <span class="strength-req-item" id="reqNum"><i class="far fa-circle"></i> Numbers</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button with Shine Animation -->
+        <div style="margin-top: 1.5rem;">
+          <button type="submit" class="btn btn-primary btn-block btn-lg btn-animated-shine" id="btnSignupSubmit">
+            <i class="fas fa-user-plus"></i> Create Student Account Free
+          </button>
+        </div>
+      </form>
+
+      <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+        Already have an account? <a href="student-login.html" style="font-weight: 700; color: var(--primary);">Sign In here &rarr;</a>
+      </div>
+
+      <div style="text-align: center; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px dashed var(--border-color); font-size: 0.85rem;">
+        Are you a college authority? <a href="college-login.html" style="font-weight: 700; color: var(--secondary);">Login to College Partner Portal &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer" style="padding: 2.5rem 0 1.5rem; margin-top: 0;">
+    <div class="container">
+      <div class="footer-bottom" style="padding-top: 0; margin-top: 0; border-top: none;">
+        <div>
+          &copy; 2026 Students Path Finder. All rights reserved. Transparent admissions for 10th-grade students.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="index.html">Home</a>
+          <a href="colleges.html">Colleges</a>
+          <a href="student-login.html">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    let selectedAvatarIcon = '🎓';
+
+    function selectAvatar(el, icon) {
+      document.querySelectorAll('.avatar-opt').forEach(opt => opt.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedAvatarIcon = icon;
+      if (typeof showToast === 'function') {
+        showToast('Avatar selected: ' + icon, 'info');
+      }
+    }
+
+    function selectStreamPill(el, streamCode) {
+      document.querySelectorAll('.stream-pill-option').forEach(p => p.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('regStream').value = streamCode;
+      document.getElementById('streamSelectedLabel').innerText = 'Inter ' + streamCode;
+    }
+
+    function checkGpaScholarship(val) {
+      const gpa = parseFloat(val);
+      const badge = document.getElementById('gpaScholarshipBadge');
+      if (isNaN(gpa) || gpa < 8.0) {
+        badge.style.display = 'none';
+        return;
+      }
+
+      badge.style.display = 'block';
+      if (gpa >= 9.8) {
+        badge.innerHTML = `
+          <div class="live-scholarship-hint">
+            <i class="fas fa-trophy" style="font-size: 1.2rem; color: #059669;"></i>
+            <div>
+              <strong>Outstanding ${gpa} GPA!</strong> You qualify for up to <strong>35% - 40% Merit Scholarship</strong> on tuition fees across top colleges!
+            </div>
+          </div>
+        `;
+      } else if (gpa >= 9.0) {
+        badge.innerHTML = `
+          <div class="live-scholarship-hint">
+            <i class="fas fa-award" style="font-size: 1.2rem; color: #059669;"></i>
+            <div>
+              <strong>Great Score (${gpa} GPA)!</strong> You are eligible for <strong>15% - 25% Fee Concessions</strong>!
+            </div>
+          </div>
+        `;
+      } else {
+        badge.innerHTML = `
+          <div class="live-scholarship-hint" style="background: #eff6ff; border-color: #93c5fd; color: #1e40af;">
+            <i class="fas fa-check-circle" style="font-size: 1.2rem;"></i>
+            <div>
+              Direct admission eligible for Inter and Polytechnic diploma programs!
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function checkPasswordStrength(pass) {
+      const fill = document.getElementById('strengthBarFill');
+      const reqLen = document.getElementById('reqLen');
+      const reqLetter = document.getElementById('reqLetter');
+      const reqNum = document.getElementById('reqNum');
+
+      const hasLen = pass.length >= 6;
+      const hasLetter = /[a-zA-Z]/.test(pass);
+      const hasNum = /[0-9]/.test(pass);
+
+      reqLen.className = 'strength-req-item ' + (hasLen ? 'met' : '');
+      reqLen.innerHTML = hasLen ? '<i class="fas fa-check-circle"></i> 6+ chars' : '<i class="far fa-circle"></i> 6+ chars';
+
+      reqLetter.className = 'strength-req-item ' + (hasLetter ? 'met' : '');
+      reqLetter.innerHTML = hasLetter ? '<i class="fas fa-check-circle"></i> Letters' : '<i class="far fa-circle"></i> Letters';
+
+      reqNum.className = 'strength-req-item ' + (hasNum ? 'met' : '');
+      reqNum.innerHTML = hasNum ? '<i class="fas fa-check-circle"></i> Numbers' : '<i class="far fa-circle"></i> Numbers';
+
+      let score = 0;
+      if (hasLen) score += 33;
+      if (hasLetter) score += 33;
+      if (hasNum) score += 34;
+
+      fill.style.width = score + '%';
+      if (score < 40) {
+        fill.style.backgroundColor = '#ef4444';
+      } else if (score < 75) {
+        fill.style.backgroundColor = '#f59e0b';
+      } else {
+        fill.style.backgroundColor = '#10b981';
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById('regPass');
+      const icon = document.getElementById('passToggleIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fas fa-eye-slash';
+      } else {
+        input.type = 'password';
+        icon.className = 'fas fa-eye';
+      }
+    }
+
+    async function handleAnimatedStudentSignup(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSignupSubmit');
+      const errBox = document.getElementById('signupErrorAlert');
+      const errText = document.getElementById('signupErrorText');
+
+      errBox.style.display = 'none';
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Setting Up Account...';
+      btn.disabled = true;
+
+      const studentData = {
+        name: document.getElementById('regName').value,
+        phone: document.getElementById('regPhone').value,
+        email: document.getElementById('regEmail').value,
+        password: document.getElementById('regPass').value,
+        tenthGPA: document.getElementById('regGPA').value,
+        stream: document.getElementById('regStream').value,
+        city: document.getElementById('regCity').value,
+        avatar: selectedAvatarIcon
+      };
+
+      const res = await Auth.signupStudent(studentData);
+      if (res.success) {
+        btn.innerHTML = '<i class="fas fa-check"></i> Account Created!';
+        if (typeof showToast === 'function') {
+          showToast('Welcome, ' + studentData.name + '! Account created successfully.', 'success');
+        }
+        setTimeout(() => {
+          window.location.href = 'colleges.html';
+        }, 700);
+      } else {
+        btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Student Account Free';
+        btn.disabled = false;
+        errText.innerText = res.error || 'Failed to create account.';
+        errBox.style.display = 'flex';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('spf_theme') || 'light';
+        document.documentElement.setAttribute('data-theme', saved);
+      } catch (e) {}
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Admin Dashboard | Students Path Finder</title>
+  <meta name="description" content="Exclusive portal for college authorities to update fees, broadcast changes live to the student website, manage leads, and upload campus photos.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body class="dashboard-body">
+  <!-- Admin Navbar -->
+  <nav class="navbar admin-navbar">
+    <div class="container navbar-inner">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <div class="logo-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706); width: 2.5rem; height: 2.5rem;">
+          <i class="fas fa-university"></i>
+        </div>
+        <div>
+          <div style="font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 800; color: #ffffff;">
+            College Management Suite
+          </div>
+          <div style="font-size: 0.72rem; color: #94a3b8;">
+            Direct Institutional Administration Portal
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;">
+        <!-- Switch College dropdown for demo convenience -->
+        <div class="admin-switcher-wrap">
+          <span style="font-size: 0.75rem; color: #94a3b8;"><i class="fas fa-building text-accent"></i> Campus:</span>
+          <select id="collegeSwitcherSelect" class="admin-switcher-select"></select>
+        </div>
+
+        <button class="theme-toggle-btn" onclick="Theme.toggle()" title="Toggle Dark/Light Mode">
+          <i class="fas fa-moon text-primary"></i> <span class="theme-text">Dark</span>
+        </button>
+
+        <a href="index.html" target="_blank" class="btn btn-outline btn-sm" style="border-color: #334155; color: #cbd5e1;" title="Open Student Discovery Website in a new tab to see real-time updates!">
+          <i class="fas fa-external-link-alt"></i> Student Website
+        </a>
+
+        <button onclick="Auth.logout()" class="btn btn-danger btn-sm" title="Log Out of College Portal">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Hero Header -->
+  <header class="dashboard-hero-header">
+    <div class="container">
+      <div class="dashboard-hero-inner">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem; flex-wrap: wrap;">
+            <span class="admin-badge"><i class="fas fa-shield-alt"></i> Verified College Admin</span>
+            <span class="badge badge-dark" id="dashCollegeCode">CODE</span>
+            <span class="badge badge-success"><i class="fas fa-wifi"></i> Live Sync Active</span>
+          </div>
+          <h1 class="dash-college-title" id="dashCollegeName">College Name</h1>
+          <div class="dash-college-subtitle" id="dashCollegeBranch">Branch, City</div>
+        </div>
+
+        <div style="text-align: right;">
+          <div style="font-size: 0.8rem; color: var(--text-muted);">Last Synchronized:</div>
+          <div style="font-weight: 700; color: var(--success-dark);" id="dashLastSync">Just now</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" style="margin-top: 2rem; margin-bottom: 4rem;">
+    <!-- Key Statistics -->
+    <div class="dashboard-stats-grid">
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon dash-stat-icon-blue">
+          <i class="fas fa-inbox"></i>
+        </div>
+        <div class="dash-stat-info">
+          <h3 id="statTotalInquiries">0</h3>
+          <p>Total Student Inquiries</p>
+        </div>
+      </div>
+
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon dash-stat-icon-amber">
+          <i class="fas fa-user-clock"></i>
+        </div>
+        <div class="dash-stat-info">
+          <h3 id="statNewLeads">0</h3>
+          <p>New Leads Awaiting Call</p>
+        </div>
+      </div>
+
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon dash-stat-icon-green">
+          <i class="fas fa-receipt"></i>
+        </div>
+        <div class="dash-stat-info">
+          <h3 id="statCurrentTotalFee">₹0</h3>
+          <p>Current Total Day Scholar Fee</p>
+        </div>
+      </div>
+
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon dash-stat-icon-purple">
+          <i class="fas fa-chalkboard-teacher"></i>
+        </div>
+        <div class="dash-stat-info">
+          <h3 id="statCurrentTuition">₹0</h3>
+          <p>Base Tuition Fee</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Instructions Banner -->
+    <div class="dashboard-live-banner">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <div class="live-pulse-dot" style="background: #34d399; width: 1.2rem; height: 1.2rem; border-radius: 50%;"></div>
+        <div>
+          <div style="font-weight: 800; font-size: 1.05rem;"><i class="fas fa-bolt"></i> Real-Time Synchronized Fee Updates</div>
+          <div style="font-size: 0.88rem; opacity: 0.95;">
+            Open the <strong>Student Website</strong> in another tab. When you edit fees below and click <strong>'Publish & Broadcast Live'</strong>, numbers instantly flash and update across student search cards, detail pages, and comparison tables!
+          </div>
+        </div>
+      </div>
+      <a href="colleges.html" target="_blank" class="btn btn-accent btn-sm">
+        <i class="fas fa-external-link-alt"></i> Open Student Tab Now
+      </a>
+    </div>
+
+    <!-- Live Fee Structure Editor (Core Feature) -->
+    <section class="fee-editor-box">
+      <div class="fee-editor-header">
+        <div>
+          <span class="badge badge-primary"><i class="fas fa-edit"></i> Real-Time Fee Management</span>
+          <h2 style="font-size: 1.6rem; margin-top: 0.4rem;">Official College Fee Structure Editor</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Transparent breakdowns prevent surprises for parents and ensure 100% accurate discovery.
+          </p>
+        </div>
+
+        <div class="live-fee-preview-box">
+          <div class="live-fee-preview-label">
+            Live Calculated Day Scholar Fee
+          </div>
+          <div class="live-fee-preview-value" id="previewTotalFee">
+            ₹0
+          </div>
+        </div>
+      </div>
+
+      <form id="feeEditorForm">
+        <div class="fee-inputs-grid">
+          <div class="form-group">
+            <label class="form-label required">Tuition Fee (Annual in INR)</label>
+            <input type="number" class="form-control fee-calc-input" id="inputTuition" required step="500">
+            <div class="form-help">Classroom teaching & academic faculty fee</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required">Admission & Enrollment Fee (INR)</label>
+            <input type="number" class="form-control fee-calc-input" id="inputAdmission" required step="500">
+            <div class="form-help">One-time registration & board fee</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required">Competitive Coaching & Test Series (INR)</label>
+            <input type="number" class="form-control fee-calc-input" id="inputCoaching" required step="500">
+            <div class="form-help">IIT-JEE / NEET / BITSAT / EAPCET coaching</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required">Lab & Examination Fee (INR)</label>
+            <input type="number" class="form-control fee-calc-input" id="inputLabExam" required step="500">
+            <div class="form-help">Science labs, equipment, & internal exam fees</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required">Books, Study Material & Uniforms (INR)</label>
+            <input type="number" class="form-control fee-calc-input" id="inputBooks" required step="500">
+            <div class="form-help">Full syllabus material sets & uniform charges</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Hostel Fee - AC (Optional / Annum)</label>
+            <input type="number" class="form-control fee-calc-input" id="inputHostelAC" step="1000">
+            <div class="form-help">3-sharing AC dorm with food</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Hostel Fee - Non-AC (Optional / Annum)</label>
+            <input type="number" class="form-control fee-calc-input" id="inputHostelNonAC" step="1000">
+            <div class="form-help">Standard non-AC dorm with food</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Average College Bus Transport Fee (Annum)</label>
+            <input type="number" class="form-control fee-calc-input" id="inputBusFee" step="500">
+            <div class="form-help">Average city bus route charge</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Installments Allowed</label>
+            <select class="form-control" id="inputInstallments">
+              <option value="1">1 (Full Payment at Admission)</option>
+              <option value="2">2 Installments (Semester / Term-wise)</option>
+              <option value="3">3 Installments</option>
+              <option value="4">4 Quarterly Installments</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="grid-column: span 2;">
+            <label class="form-label">Installment Payment Schedule Description</label>
+            <input type="text" class="form-control" id="inputInstallmentPlan" placeholder="e.g. 1st: ₹60,000 at admission | 2nd: ₹50,000 (Sep) | 3rd: Remainder (Dec)">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+          <button type="submit" class="btn btn-primary btn-lg btn-animated-shine" id="btnPublishFees">
+            <i class="fas fa-broadcast-tower"></i> Publish & Broadcast Live to Student Website
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Student Admission Inquiries / Leads Table -->
+    <section class="card" style="margin-bottom: 2.5rem;">
+      <div class="card-header">
+        <div>
+          <h3><i class="fas fa-user-graduate text-primary"></i> Student Admission Inquiries & Leads</h3>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">Incoming requests from 10th-grade students interested in this campus.</p>
+        </div>
+        <span class="badge badge-primary"><i class="fas fa-bolt"></i> Direct Applications</span>
+      </div>
+      <div class="dashboard-table-container">
+        <table class="compare-table" style="margin: 0; box-shadow: none;">
+          <thead>
+            <tr>
+              <th>Student Name & Date</th>
+              <th>Contact Details</th>
+              <th>10th Score</th>
+              <th>Stream & Preference</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="inquiriesTableBody">
+            <!-- Injected by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Real Campus Photo Gallery Manager -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <h3><i class="fas fa-camera text-primary"></i> Real Campus Photos Manager</h3>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">Upload real photos of classrooms, laboratories, and hostels so students and parents don't need to travel.</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <form id="addPhotoForm" style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+          <input type="url" class="form-control" id="inputPhotoUrl" required placeholder="Paste high-res image URL (e.g. Unsplash or institutional CDN image)" style="flex-grow: 1;">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-plus-circle"></i> Add Campus Photo
+          </button>
+        </form>
+
+        <div class="dashboard-gallery-grid" id="dashboardGalleryGrid">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Standard Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <div class="logo-icon"><i class="fas fa-university"></i></div>
+            <span>College Management Suite</span>
+          </div>
+          <p class="footer-desc">
+            Direct institutional portal enabling authorized college staff to maintain accurate, transparent fee structures, broadcast real-time updates, and respond to incoming student leads.
+          </p>
+          <div class="footer-social-row">
+            <a href="#" class="footer-social-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="footer-social-btn" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="footer-social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="footer-social-btn" title="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Portal Shortcuts</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Student Portal Home</a></li>
+            <li><a href="colleges.html">College Explorer</a></li>
+            <li><a href="compare.html">Side-by-Side Comparison</a></li>
+            <li><a href="student-login.html">Student Sign In</a></li>
+            <li><a href="college-login.html">Switch College Admin</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Institutional Streams</h4>
+          <ul class="footer-links">
+            <li><a href="colleges.html?stream=MPC">MPC (Maths, Physics, Chem)</a></li>
+            <li><a href="colleges.html?stream=BiPC">BiPC (Medical / Biology)</a></li>
+            <li><a href="colleges.html?stream=MEC">MEC (Commerce / Eco)</a></li>
+            <li><a href="colleges.html?stream=CEC">CEC (Arts / Humanities)</a></li>
+            <li><a href="colleges.html?stream=Polytechnic">Polytechnic Engineering</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Compliance & Security</h4>
+          <div class="footer-newsletter-form">
+            <p>Every fee revision is cryptographically signed, timestamped, and stored in the SQLite audit ledger.</p>
+            <div class="footer-trust-item" style="color: var(--success); font-weight: 700; margin-top: 0.5rem;">
+              <i class="fas fa-shield-alt"></i> AES/PBKDF2 Secured Sessions
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 Students Path Finder Platform. Built for transparent, stress-free admissions.
+        </div>
+        <button class="back-to-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+          <i class="fas fa-arrow-up"></i> Top
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toastContainer" class="toast-container"></div>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/live-sync.js"></script>
+  <script src="js/college-portal.js"></script>
+</body>
+</html>

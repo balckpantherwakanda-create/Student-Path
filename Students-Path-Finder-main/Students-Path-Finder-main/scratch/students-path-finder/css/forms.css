@@ -1,0 +1,430 @@
+/* ==========================================================================
+   Students Path Finder - Comprehensive Form & Input Design System
+   ========================================================================== */
+
+/* ---------- Form Groups & Layout ---------- */
+.form-group {
+  margin-bottom: 1.25rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-row > .form-group {
+  flex: 1 1 200px;
+}
+
+/* ---------- Form Labels ---------- */
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.45rem;
+  transition: color var(--transition-fast);
+}
+
+.form-label i {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.form-label.required::after,
+.form-label[data-required="true"]::after {
+  content: "*";
+  color: var(--danger);
+  margin-left: 0.2rem;
+  font-weight: 700;
+}
+
+/* ---------- Standard Form Controls (Inputs, Selects, Textareas) ---------- */
+.form-control {
+  width: 100%;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.94rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text-main);
+  background-color: var(--bg-card);
+  background-clip: padding-box;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.72rem 1rem;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-xs);
+  outline: none;
+}
+
+.form-control::placeholder {
+  color: var(--text-light);
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.form-control:hover:not(:disabled) {
+  border-color: #94a3b8;
+}
+
+.form-control:focus {
+  background-color: var(--bg-card);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3.5px var(--primary-glow);
+  outline: none;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: var(--bg-subtle);
+  border-color: var(--border-color);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+/* ---------- Textarea Styling ---------- */
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* ---------- Select Element Styling ---------- */
+select.form-control,
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2364748b'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  background-size: 1.25rem 1.25rem;
+  padding-right: 2.6rem;
+  cursor: pointer;
+}
+
+select.form-control option {
+  background: var(--bg-card);
+  color: var(--text-main);
+  padding: 0.5rem;
+}
+
+/* ---------- Numeric & Fee Calculation Inputs ---------- */
+input[type="number"].form-control,
+.fee-calc-input {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.fee-calc-input:focus {
+  border-color: var(--primary);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.22);
+}
+
+/* Hide spin arrows in Firefox and Webkit if desired */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 0.5;
+}
+
+/* ---------- Input Groups (Icons & Addons) ---------- */
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.input-group .form-control {
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+}
+
+.input-addon {
+  display: flex;
+  align-items: center;
+  padding: 0.72rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background-color: var(--bg-subtle);
+  border: 1.5px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.input-group > .input-addon:first-child {
+  border-right: none;
+  border-top-left-radius: var(--radius-md);
+  border-bottom-left-radius: var(--radius-md);
+}
+
+.input-group > .form-control:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.input-group > .form-control:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-group > .input-addon:last-child {
+  border-left: none;
+  border-top-right-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+}
+
+/* Input with Inside Icon */
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon .input-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1rem;
+  color: var(--text-light);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: color var(--transition-fast);
+}
+
+.input-with-icon .form-control {
+  padding-left: 2.75rem;
+}
+
+.input-with-icon .form-control:focus ~ .input-icon {
+  color: var(--primary);
+}
+
+.input-with-icon.icon-right .input-icon {
+  left: auto;
+  right: 1rem;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.input-with-icon.icon-right .form-control {
+  padding-left: 1rem;
+  padding-right: 2.75rem;
+}
+
+/* ---------- Custom Checkbox & Radio Controls ---------- */
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.form-check-input {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin: 0;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-card);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  display: grid;
+  place-content: center;
+  transition: all var(--transition-fast);
+}
+
+.form-check-input[type="radio"] {
+  border-radius: 50%;
+}
+
+.form-check-input::before {
+  content: "";
+  width: 0.65rem;
+  height: 0.65rem;
+  transform: scale(0);
+  transition: transform var(--transition-fast);
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+
+.form-check-input[type="radio"]::before {
+  border-radius: 50%;
+}
+
+.form-check-input:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.form-check-input:checked::before {
+  transform: scale(1);
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 3px var(--primary-glow);
+  outline: none;
+}
+
+.form-check-label {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+/* ---------- Range Slider Controls ---------- */
+input[type="range"].form-range {
+  width: 100%;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--border-color);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+input[type="range"].form-range::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 3px solid #ffffff;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+input[type="range"].form-range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background: var(--primary-hover);
+}
+
+input[type="range"].form-range::-webkit-slider-thumb:active {
+  transform: scale(1.25);
+}
+
+/* ---------- Help & Validation Text ---------- */
+.form-help {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.form-feedback {
+  font-size: 0.82rem;
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 500;
+}
+
+.form-feedback.invalid-feedback {
+  color: var(--danger);
+}
+
+.form-feedback.valid-feedback {
+  color: var(--success-dark);
+}
+
+.form-control.is-invalid {
+  border-color: var(--danger) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
+
+.form-control.is-valid {
+  border-color: var(--success) !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
+}
+
+/* ==================== DARK MODE ENHANCEMENTS FOR FORMS ==================== */
+[data-theme="dark"] .form-label {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .form-control {
+  background-color: var(--bg-subtle);
+  border-color: var(--border-color);
+  color: #f8fafc;
+  box-shadow: none;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+  color: #64748b;
+}
+
+[data-theme="dark"] .form-control:hover:not(:disabled) {
+  border-color: #475569;
+}
+
+[data-theme="dark"] .form-control:focus {
+  background-color: #172236;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.35);
+}
+
+[data-theme="dark"] .form-control:disabled,
+[data-theme="dark"] .form-control[readonly] {
+  background-color: #0d131f;
+  border-color: #1e293b;
+  color: #64748b;
+}
+
+[data-theme="dark"] select.form-control,
+[data-theme="dark"] .form-select {
+  background-color: var(--bg-subtle);
+  color: #f8fafc;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2394a3b8'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+[data-theme="dark"] select.form-control option {
+  background-color: #131d2e;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .input-addon {
+  background-color: #1e293b;
+  border-color: var(--border-color);
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .form-check-input {
+  background-color: var(--bg-subtle);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .form-check-label {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] input[type="range"].form-range {
+  background: #334155;
+}
+
+[data-theme="dark"] input[type="range"].form-range::-webkit-slider-thumb {
+  border-color: #131d2e;
+}
+
+[data-theme="dark"] .form-help {
+  color: #94a3b8;
+}

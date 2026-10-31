@@ -1,0 +1,399 @@
+/* ==========================================================================
+   Students Path Finder - Authentication & Onboarding Styling (Login & Signup)
+   ========================================================================== */
+
+/* ---------- Ambient Background Glow Orbs ---------- */
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.65;
+  transition: opacity var(--transition-slow);
+}
+
+.ambient-orb-1 {
+  width: 450px;
+  height: 450px;
+  top: -80px;
+  right: -80px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, transparent 70%);
+}
+
+.ambient-orb-2 {
+  width: 500px;
+  height: 500px;
+  bottom: -100px;
+  left: -100px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
+}
+
+.ambient-orb-3 {
+  width: 380px;
+  height: 380px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, transparent 70%);
+}
+
+/* ---------- Auth Page Wrapper ---------- */
+.auth-page-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 85px);
+  padding: 3rem 1.5rem;
+  position: relative;
+  z-index: 5;
+}
+
+/* ---------- Auth Card ---------- */
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+  position: relative;
+  z-index: 10;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), background var(--transition-normal);
+}
+
+.auth-card.wide {
+  max-width: 620px;
+  padding: 2.75rem;
+}
+
+.auth-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.12);
+}
+
+/* College Portal Specific Border Accent */
+.college-auth-card {
+  border-top: 4.5px solid var(--accent);
+}
+
+.student-auth-card {
+  border-top: 4.5px solid var(--primary);
+}
+
+/* ---------- Auth Header ---------- */
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-header .logo-icon {
+  margin: 0 auto 1.25rem;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+}
+
+.auth-header h2 {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* ---------- Quick 1-Click Demo Credentials Box ---------- */
+.demo-credentials-box {
+  background: var(--primary-light);
+  border: 1.5px dashed #93c5fd;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.75rem;
+  transition: all var(--transition-fast);
+}
+
+.demo-credentials-box.demo-college {
+  background: #fffbeb;
+  border-color: #fcd34d;
+}
+
+.demo-credentials-box button {
+  background: #ffffff;
+  border: 1px solid #bfdbfe;
+  color: var(--primary);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-xs);
+}
+
+.demo-credentials-box button:hover {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.demo-credentials-box.demo-college button {
+  border-color: #fde68a;
+  color: #b45309;
+}
+
+.demo-credentials-box.demo-college button:hover {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+.demo-credentials-box code {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.82rem;
+  color: var(--secondary);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- Avatar Selection Row (Student Signup) ---------- */
+.avatar-selection-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.avatar-opt {
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: 2.5px solid transparent;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.avatar-opt:hover {
+  transform: scale(1.12);
+}
+
+.avatar-opt.selected {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+  transform: scale(1.1);
+}
+
+/* ---------- Stream Selection Chips (Signup) ---------- */
+.stream-chips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+}
+
+.stream-chip {
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.stream-chip:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.stream-chip.active {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 3px 10px var(--primary-glow);
+}
+
+/* ---------- Live Scholarship Concession Banner ---------- */
+.scholarship-live-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  font-size: 0.88rem;
+  margin-bottom: 1.25rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.scholarship-live-preview i {
+  font-size: 1.2rem;
+  color: #10b981;
+}
+
+/* ---------- Form Error & Alert Banner ---------- */
+.auth-alert {
+  display: none;
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.auth-alert-danger {
+  background: var(--danger-light);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+}
+
+.auth-alert-success {
+  background: var(--success-light);
+  border: 1px solid var(--success);
+  color: var(--success-dark);
+}
+
+/* ---------- Password Toggle Eye Icon ---------- */
+.password-field-wrapper {
+  position: relative;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 0.3rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-fast);
+}
+
+.password-toggle-btn:hover {
+  color: var(--text-main);
+}
+
+/* ==================== DARK MODE AUTH PAGES ==================== */
+[data-theme="dark"] .auth-card {
+  background: rgba(19, 29, 46, 0.94);
+  border-color: #26354f;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .auth-card:hover {
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .demo-credentials-box {
+  background: #17243c;
+  border-color: #2a3e63;
+}
+
+[data-theme="dark"] .demo-credentials-box.demo-college {
+  background: #271e0a;
+  border-color: #523e12;
+}
+
+[data-theme="dark"] .demo-credentials-box button {
+  background: #1e2d48;
+  border-color: #3b5073;
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .demo-credentials-box button:hover {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .demo-credentials-box.demo-college button {
+  background: #382c11;
+  border-color: #634b17;
+  color: #fde68a;
+}
+
+[data-theme="dark"] .demo-credentials-box.demo-college button:hover {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .demo-credentials-box code {
+  background: #0f172a;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .stream-chip {
+  background: var(--bg-subtle);
+  border-color: var(--border-color);
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .stream-chip:hover {
+  background: #1e2d48;
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .scholarship-live-preview {
+  background: #064e3b;
+  border-color: #047857;
+  color: #d1fae5;
+}
+
+[data-theme="dark"] .auth-alert-danger {
+  background: #450a0a;
+  border-color: #991b1b;
+  color: #fca5a5;
+}
+
+[data-theme="dark"] .password-toggle-btn:hover {
+  color: #f8fafc;
+}
+
+@media (max-width: 576px) {
+  .auth-card {
+    padding: 1.75rem 1.25rem;
+  }
+  .auth-card.wide {
+    padding: 1.75rem 1.25rem;
+  }
+}

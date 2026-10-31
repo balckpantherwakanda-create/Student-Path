@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Institution Registration | Students Path Finder</title>
+  <meta name="description" content="List your college or junior college campus, publish real-time verified fees, and receive verified 10th pass student admission inquiries.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('spf_theme') || 'light';
+        document.documentElement.setAttribute('data-theme', saved);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body style="position: relative; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column;">
+  <!-- Ambient Floating Orbs -->
+  <div class="ambient-orb ambient-orb-1" style="background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(217, 119, 6, 0.2) 100%);"></div>
+  <div class="ambient-orb ambient-orb-2" style="background: radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, rgba(139, 92, 246, 0.2) 100%);"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar" style="background: #0f172a; border-bottom: 1px solid #1e293b; position: relative; z-index: 10;">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo" style="color: #ffffff;">
+        <div class="logo-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);"><i class="fas fa-university"></i></div>
+        <div class="logo-text">
+          <span class="logo-title" style="color: #fff;">College <span>Partner Portal</span></span>
+          <span class="logo-tagline" style="color: #94a3b8;">New Institution Onboarding</span>
+        </div>
+      </a>
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <button class="theme-toggle-btn" onclick="Theme.toggle()" title="Toggle Dark/Light Mode" style="background: #1e293b; border-color: #334155; color: #cbd5e1;">
+          <i class="fas fa-moon text-primary"></i> <span class="theme-text">Dark</span>
+        </button>
+        <a href="index.html" class="btn btn-outline" style="border-color: #334155; color: #cbd5e1; font-size: 0.82rem;">
+          <i class="fas fa-arrow-left"></i> Student Website
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="auth-page-wrapper" style="flex: 1; padding: 2.5rem 1.5rem;">
+    <div class="auth-card wide college-auth-card fade-in-up">
+      <div class="auth-header">
+        <div class="logo-icon animate-float" style="background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4); color: white;">
+          <i class="fas fa-building"></i>
+        </div>
+        <h2>Register College / Institution</h2>
+        <p>List your campus, publish real-time verified fees, and receive student admission leads directly.</p>
+      </div>
+
+      <div id="collegeRegErrorAlert" class="auth-alert auth-alert-danger" style="display: none;">
+        <i class="fas fa-exclamation-circle"></i> <span id="collegeRegErrorText">Registration error</span>
+      </div>
+
+      <form id="collegeRegForm" onsubmit="handleAnimatedCollegeRegSubmit(event)">
+        <div class="form-row">
+          <div class="form-group" style="flex: 1.4;">
+            <label class="form-label required"><i class="fas fa-university text-primary"></i> Full College Name</label>
+            <input type="text" class="form-control" id="newCollegeName" required placeholder="e.g. Vikas Junior College">
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label required"><i class="fas fa-map-pin text-accent"></i> Campus / Branch</label>
+            <input type="text" class="form-control" id="newBranch" required placeholder="e.g. Ameerpet Campus">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label required"><i class="fas fa-city text-info"></i> City / Town</label>
+            <input type="text" class="form-control" id="newCity" required placeholder="e.g. Hyderabad">
+          </div>
+          <div class="form-group">
+            <label class="form-label required"><i class="fas fa-phone text-success"></i> Admissions Hotline Phone</label>
+            <input type="tel" class="form-control" id="newPhone" required placeholder="+91 98480 00000">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-user-tie text-purple"></i> Principal / In-Charge Name</label>
+            <input type="text" class="form-control" id="newContactPerson" placeholder="Dr. Principal Name">
+          </div>
+          <div class="form-group">
+            <label class="form-label required"><i class="fas fa-envelope text-primary"></i> Official College Email</label>
+            <input type="email" class="form-control" id="newEmail" required placeholder="admissions@vikascollege.edu">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-receipt text-accent"></i> Starting Annual Tuition Fee (INR)</label>
+            <input type="number" class="form-control fee-calc-input" id="newTuition" placeholder="e.g. 55000">
+          </div>
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-map-marked-alt text-danger"></i> Campus Address</label>
+            <input type="text" class="form-control" id="newAddress" placeholder="Road No, Landmark, Pin code">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label required"><i class="fas fa-lock text-primary"></i> Create Administrator Password</label>
+          <div class="password-field-wrapper">
+            <input type="password" class="form-control" id="newPass" required placeholder="Minimum 6 characters">
+            <button type="button" class="password-toggle-btn" onclick="togglePassVisibility('newPass', this)" title="Show/Hide Password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+          <button type="submit" class="btn btn-accent btn-block btn-lg btn-animated-shine" id="btnColSubmit">
+            <i class="fas fa-check-circle"></i> Complete Onboarding & Open Dashboard
+          </button>
+        </div>
+      </form>
+
+      <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+        Already have college portal credentials? <a href="college-login.html" style="font-weight: 700; color: var(--accent-hover);">Sign In to College Portal &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer" style="padding: 2.5rem 0 1.5rem; margin-top: 0; background: #0f172a; border-top-color: #1e293b; color: #94a3b8;">
+    <div class="container">
+      <div class="footer-bottom" style="padding-top: 0; margin-top: 0; border-top: none; color: #94a3b8;">
+        <div>
+          &copy; 2026 Students Path Finder Institutional Portal.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="index.html" style="color: #cbd5e1;">Student Portal</a>
+          <a href="colleges.html" style="color: #cbd5e1;">Colleges</a>
+          <a href="college-login.html" style="color: #cbd5e1;">Admin Sign In</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toastContainer" class="toast-container"></div>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    function togglePassVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.innerHTML = '<i class="fas fa-eye-slash"></i>';
+      } else {
+        input.type = 'password';
+        btn.innerHTML = '<i class="fas fa-eye"></i>';
+      }
+    }
+
+    async function handleAnimatedCollegeRegSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnColSubmit');
+      const errBox = document.getElementById('collegeRegErrorAlert');
+      const errText = document.getElementById('collegeRegErrorText');
+
+      errBox.style.display = 'none';
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Onboarding Institution...';
+      btn.disabled = true;
+
+      const data = {
+        collegeName: document.getElementById('newCollegeName').value,
+        branch: document.getElementById('newBranch').value,
+        city: document.getElementById('newCity').value,
+        phone: document.getElementById('newPhone').value,
+        contactPerson: document.getElementById('newContactPerson').value,
+        email: document.getElementById('newEmail').value,
+        password: document.getElementById('newPass').value,
+        tuitionFee: document.getElementById('newTuition').value || 50000,
+        address: document.getElementById('newAddress').value
+      };
+
+      const res = await Auth.signupCollege(data);
+      if (res && res.success) {
+        btn.innerHTML = '<i class="fas fa-check"></i> Onboarded!';
+        if (typeof showToast === 'function') {
+          showToast('Institution registered successfully! Loading Dashboard...', 'success');
+        }
+        setTimeout(() => {
+          window.location.href = 'college-dashboard.html';
+        }, 700);
+      } else {
+        btn.innerHTML = '<i class="fas fa-check-circle"></i> Complete Onboarding & Open Dashboard';
+        btn.disabled = false;
+        errText.innerText = (res && res.error) || 'Failed to onboard institution.';
+        errBox.style.display = 'flex';
+      }
+    }
+  </script>
+</body>
+</html>

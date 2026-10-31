@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Intermediate Colleges & Fees | InterFeeFinder</title>
+  <meta name="description" content="Filter and find the best Intermediate / Junior colleges with complete fee breakdowns across MPC, BiPC, MEC, CEC, and Vocational streams.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+        <span>Inter</span>FeeFinder
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="colleges.html" class="nav-link active">Explore Colleges</a>
+        <a href="calculator.html" class="nav-link">Fee & Scholarship Calc</a>
+        <a href="compare.html" class="nav-link">Compare</a>
+        <a href="colleges.html?bookmarked=true" class="nav-link" id="navBookmarkLink">
+          <i class="fas fa-heart" style="color: var(--danger);"></i> Shortlist
+          <span class="badge badge-danger bookmark-count-badge" style="display: none;">0</span>
+        </a>
+      </div>
+
+      <div class="nav-actions">
+        <a href="calculator.html" class="btn btn-outline btn-sm">
+          <i class="fas fa-calculator"></i> Scholarship Calc
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header Banner -->
+  <section style="background: var(--white); padding: 30px 0; border-bottom: 1px solid var(--gray-200);">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <h1 style="font-size: 1.8rem; margin-bottom: 6px;">Intermediate Colleges & Fee Directory</h1>
+          <p style="color: var(--gray-600); font-size: 0.95rem;">
+            Compare transparent tuition, hostel, and bus fees from official college prospectuses.
+          </p>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <button onclick="resetAllFilters()" class="btn btn-outline btn-sm">
+            <i class="fas fa-undo"></i> Reset Filters
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catalog Main Layout -->
+  <div class="container">
+    <div class="catalog-layout">
+      
+      <!-- ==================== FILTERS SIDEBAR ==================== -->
+      <aside class="filter-sidebar">
+        <div class="filter-header">
+          <h3 style="font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+            <i class="fas fa-sliders-h" style="color: var(--primary);"></i> Filters
+          </h3>
+          <button onclick="resetAllFilters()" style="font-size: 0.82rem; color: var(--primary); font-weight: 600;">
+            Clear All
+          </button>
+        </div>
+
+        <!-- Search Keyword -->
+        <div class="filter-group">
+          <div class="filter-title">Search College / Area</div>
+          <div class="search-input-group" style="padding: 8px 12px;">
+            <i class="fas fa-search" style="font-size: 0.9rem;"></i>
+            <input type="text" id="filterSearch" placeholder="e.g. Narayana, Madhapur, IIT..." oninput="onFilterChange()" />
+          </div>
+        </div>
+
+        <!-- Streams Filter -->
+        <div class="filter-group">
+          <div class="filter-title">Stream / Group</div>
+          <div class="filter-options-list">
+            <label class="filter-checkbox">
+              <input type="radio" name="streamFilter" value="All" checked onchange="onFilterChange()">
+              <span>All Streams</span>
+            </label>
+            <label class="filter-checkbox">
+              <input type="radio" name="streamFilter" value="MPC" onchange="onFilterChange()">
+              <span>MPC (Maths, Phy, Chem)</span>
+            </label>
+            <label class="filter-checkbox">
+              <input type="radio" name="streamFilter" value="BiPC" onchange="onFilterChange()">
+              <span>BiPC (Bio, Phy, Chem)</span>
+            </label>
+            <label class="filter-checkbox">
+              <input type="radio" name="streamFilter" value="MEC" onchange="onFilterChange()">
+              <span>MEC (Maths, Econ, Com)</span>
+            </label>
+            <label class="filter-checkbox">
+              <input type="radio" name="streamFilter" value="CEC" onchange="onFilterChange()">
+              <span>CEC (Civics, Econ, Com)</span>
+            </label>
+            <label class="filter-checkbox">
+              <input type="radio" name="streamFilter" value="HEC" onchange="onFilterChange()">
+              <span>HEC (Humanities)</span>
+            </label>
+            <label class="filter-checkbox">
+              <input type="radio" name="streamFilter" value="Vocational" onchange="onFilterChange()">
+              <span>Vocational Courses</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- City Filter -->
+        <div class="filter-group">
+          <div class="filter-title">City / Location</div>
+          <select id="filterCity" onchange="onFilterChange()" class="form-group select" style="width: 100%; padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-md);">
+            <option value="All Cities">All Cities</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Secunderabad">Secunderabad</option>
+            <option value="Vijayawada">Vijayawada</option>
+            <option value="Guntur">Guntur</option>
+            <option value="Warangal">Warangal</option>
+            <option value="Visakhapatnam">Visakhapatnam</option>
+          </select>
+        </div>
+
+        <!-- Max Total Fee Budget Slider -->
+        <div class="filter-group">
+          <div class="filter-title" style="display: flex; justify-content: space-between;">
+            <span>Max Annual Fee:</span>
+            <strong id="budgetValueLabel" style="color: var(--primary);">₹2,50,000</strong>
+          </div>
+          <input type="range" id="filterBudget" min="0" max="250000" step="5000" value="250000" 
+                 style="width: 100%; height: 6px; accent-color: var(--primary); cursor: pointer;"
+                 oninput="onBudgetSliderInput(this.value)" onchange="onFilterChange()" />
+          <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--gray-500); margin-top: 4px;">
+            <span>₹0 (Govt Free)</span>
+            <span>₹2.5 Lakhs</span>
+          </div>
+        </div>
+
+        <!-- College Type & Gender -->
+        <div class="filter-group">
+          <div class="filter-title">Gender & Type</div>
+          <div class="filter-options-list">
+            <label class="filter-checkbox">
+              <input type="radio" name="genderFilter" value="All" checked onchange="onFilterChange()">
+              <span>All Genders (Co-ed & Girls)</span>
+            </label>
+            <label class="filter-checkbox">
+              <input type="radio" name="genderFilter" value="Girls" onchange="onFilterChange()">
+              <span>Girls Only Colleges</span>
+            </label>
+            <label class="filter-checkbox">
+              <input type="radio" name="genderFilter" value="Co-ed" onchange="onFilterChange()">
+              <span>Co-ed Only</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Facilities -->
+        <div class="filter-group">
+          <div class="filter-title">Facilities & Boarding</div>
+          <div class="filter-options-list">
+            <label class="filter-checkbox">
+              <input type="checkbox" id="filterHostel" onchange="onFilterChange()">
+              <span>Has Hostel / Boarding</span>
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" id="filterBus" onchange="onFilterChange()">
+              <span>College Bus Transport</span>
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" id="filterFreeGovt" onchange="onFilterChange()">
+              <span>100% Free / Govt Funded</span>
+            </label>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- ==================== COLLEGES CATALOG CONTENT ==================== -->
+      <main>
+        <!-- Control Bar (Count, View Mode, Sorting) -->
+        <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px;">
+          <div>
+            <span id="collegesCountDisplay" style="font-weight: 700; color: var(--gray-900);">Showing 11 Colleges</span>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: var(--gray-600);">
+              <span>Sort by:</span>
+              <select id="sortBySelect" onchange="onSortChange()" style="padding: 6px 12px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-md); font-weight: 600; background: var(--gray-50);">
+                <option value="recommended">Recommended & Ratings</option>
+                <option value="fee-low">Fee: Low to High</option>
+                <option value="fee-high">Fee: High to Low</option>
+                <option value="rating">Highest Rated</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colleges Grid -->
+        <div class="colleges-grid" id="collegesCatalogContainer">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="noResultsState" style="display: none; text-align: center; padding: 60px 20px; background: var(--white); border-radius: var(--radius-xl); border: 1px dashed var(--gray-300);">
+          <div style="font-size: 3rem; color: var(--gray-400); margin-bottom: 16px;">
+            <i class="fas fa-search"></i>
+          </div>
+          <h3 style="font-size: 1.4rem; margin-bottom: 8px;">No Colleges Found Matching Your Filters</h3>
+          <p style="color: var(--gray-600); max-width: 450px; margin: 0 auto 20px;">
+            Try increasing your fee budget slider, picking 'All Streams', or searching for a different city.
+          </p>
+          <button onclick="resetAllFilters()" class="btn btn-primary">
+            <i class="fas fa-undo"></i> Reset All Filters
+          </button>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding: 0;">
+        <div>© 2026 InterFeeFinder. Dedicated to helping students and parents save travel money.</div>
+        <div><a href="index.html" style="color: #fff; text-decoration: underline;">Back to Home</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let activeFilteredColleges = [...COLLEGES_DATA];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Read initial URL params
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('search')) {
+        document.getElementById('filterSearch').value = urlParams.get('search');
+        AppState.filters.search = urlParams.get('search');
+      }
+      if (urlParams.has('stream')) {
+        const streamVal = urlParams.get('stream');
+        const radio = document.querySelector(`input[name="streamFilter"][value="${streamVal}"]`);
+        if (radio) radio.checked = true;
+        AppState.filters.stream = streamVal;
+      }
+      if (urlParams.has('city')) {
+        document.getElementById('filterCity').value = urlParams.get('city');
+        AppState.filters.city = urlParams.get('city');
+      }
+      if (urlParams.has('gender')) {
+        const genderVal = urlParams.get('gender');
+        const radio = document.querySelector(`input[name="genderFilter"][value="${genderVal}"]`);
+        if (radio) radio.checked = true;
+        AppState.filters.gender = genderVal;
+      }
+      if (urlParams.has('bookmarked')) {
+        // Filter only bookmarked colleges
+        AppState.filters.onlyBookmarked = true;
+        const navBk = document.getElementById('navBookmarkLink');
+        if (navBk) navBk.classList.add('active');
+      }
+
+      applyFilters();
+    });
+
+    function onBudgetSliderInput(val) {
+      document.getElementById('budgetValueLabel').textContent = formatINR(parseInt(val));
+    }
+
+    function onFilterChange() {
+      const search = document.getElementById('filterSearch').value.toLowerCase().trim();
+      const stream = document.querySelector('input[name="streamFilter"]:checked').value;
+      const city = document.getElementById('filterCity').value;
+      const budget = parseInt(document.getElementById('filterBudget').value);
+      const gender = document.querySelector('input[name="genderFilter"]:checked').value;
+      const hasHostel = document.getElementById('filterHostel').checked;
+      const hasBus = document.getElementById('filterBus').checked;
+      const freeGovtOnly = document.getElementById('filterFreeGovt').checked;
+
+      AppState.filters = {
+        search,
+        stream,
+        city,
+        maxBudget: budget,
+        gender,
+        hasHostel,
+        hasBus,
+        freeGovtOnly,
+        onlyBookmarked: AppState.filters.onlyBookmarked || false,
+        sortBy: document.getElementById('sortBySelect').value
+      };
+
+      applyFilters();
+    }
+
+    function onSortChange() {
+      AppState.filters.sortBy = document.getElementById('sortBySelect').value;
+      applyFilters();
+    }
+
+    function applyFilters() {
+      let list = COLLEGES_DATA.filter(college => {
+        // Search query (matches name, branch, city, coaching, streams)
+        if (AppState.filters.search) {
+          const q = AppState.filters.search.toLowerCase();
+          const matchName = college.name.toLowerCase().includes(q);
+          const matchBranch = college.branch.toLowerCase().includes(q);
+          const matchCity = college.city.toLowerCase().includes(q);
+          const matchCoaching = college.coachingOffered.some(c => c.toLowerCase().includes(q));
+          const matchStream = college.streams.some(s => s.toLowerCase().includes(q));
+          if (!matchName && !matchBranch && !matchCity && !matchCoaching && !matchStream) {
+            return false;
+          }
+        }
+
+        // Stream filter
+        if (AppState.filters.stream && AppState.filters.stream !== 'All') {
+          if (!college.streams.includes(AppState.filters.stream)) return false;
+        }
+
+        // City filter
+        if (AppState.filters.city && AppState.filters.city !== 'All Cities') {
+          if (college.city !== AppState.filters.city) return false;
+        }
+
+        // Budget filter
+        if (AppState.filters.maxBudget !== undefined) {
+          if (college.feeStructure.totalDayScholar > AppState.filters.maxBudget) return false;
+        }
+
+        // Gender filter
+        if (AppState.filters.gender && AppState.filters.gender !== 'All') {
+          if (AppState.filters.gender === 'Girls' && college.gender !== 'Girls') return false;
+          if (AppState.filters.gender === 'Co-ed' && college.gender !== 'Co-ed') return false;
+        }
+
+        // Hostel filter
+        if (AppState.filters.hasHostel) {
+          if (college.feeStructure.hostelFeeNonAC === 0 && college.feeStructure.hostelFeeAC === 0) return false;
+        }
+
+        // Bus filter
+        if (AppState.filters.hasBus) {
+          if (college.feeStructure.busFeeAvg === 0 && college.feeStructure.totalDayScholar > 0) return false;
+        }
+
+        // Free Govt filter
+        if (AppState.filters.freeGovtOnly) {
+          if (college.feeStructure.totalDayScholar > 5000) return false;
+        }
+
+        // Bookmarked only
+        if (AppState.filters.onlyBookmarked) {
+          if (!AppState.bookmarks.includes(college.id)) return false;
+        }
+
+        return true;
+      });
+
+      // Sorting
+      if (AppState.filters.sortBy === 'fee-low') {
+        list.sort((a, b) => a.feeStructure.totalDayScholar - b.feeStructure.totalDayScholar);
+      } else if (AppState.filters.sortBy === 'fee-high') {
+        list.sort((a, b) => b.feeStructure.totalDayScholar - a.feeStructure.totalDayScholar);
+      } else if (AppState.filters.sortBy === 'rating') {
+        list.sort((a, b) => b.rating - a.rating);
+      } else {
+        // Recommended
+        list.sort((a, b) => b.rating * b.reviewCount - a.rating * a.reviewCount);
+      }
+
+      activeFilteredColleges = list;
+      renderCollegesList();
+    }
+
+    function renderCollegesList() {
+      const container = document.getElementById('collegesCatalogContainer');
+      const countEl = document.getElementById('collegesCountDisplay');
+      const noResults = document.getElementById('noResultsState');
+
+      if (!container) return;
+
+      countEl.textContent = `Showing ${activeFilteredColleges.length} Colleges`;
+
+      if (activeFilteredColleges.length === 0) {
+        container.innerHTML = '';
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+        container.innerHTML = activeFilteredColleges.map(c => createCollegeCardHTML(c)).join('');
+      }
+    }
+
+    function resetAllFilters() {
+      document.getElementById('filterSearch').value = '';
+      document.querySelector('input[name="streamFilter"][value="All"]').checked = true;
+      document.getElementById('filterCity').value = 'All Cities';
+      document.getElementById('filterBudget').value = 250000;
+      document.getElementById('budgetValueLabel').textContent = '₹2,50,000';
+      document.querySelector('input[name="genderFilter"][value="All"]').checked = true;
+      document.getElementById('filterHostel').checked = false;
+      document.getElementById('filterBus').checked = false;
+      document.getElementById('filterFreeGovt').checked = false;
+      document.getElementById('sortBySelect').value = 'recommended';
+
+      AppState.filters = {
+        search: '',
+        stream: 'All',
+        city: 'All Cities',
+        maxBudget: 250000,
+        gender: 'All',
+        hasHostel: false,
+        hasBus: false,
+        freeGovtOnly: false,
+        onlyBookmarked: false,
+        sortBy: 'recommended'
+      };
+
+      const url = new URL(window.location);
+      url.search = '';
+      window.history.pushState({}, '', url);
+
+      applyFilters();
+      showToast('Filters reset', 'info');
+    }
+  </script>
+</body>
+</html>

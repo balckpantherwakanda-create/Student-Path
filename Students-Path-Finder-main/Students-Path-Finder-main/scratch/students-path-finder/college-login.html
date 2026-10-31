@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Partner Portal Login | Students Path Finder</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('spf_theme') || 'light';
+        document.documentElement.setAttribute('data-theme', saved);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body style="position: relative; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column;">
+  <div class="ambient-orb ambient-orb-1" style="background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, transparent 70%);"></div>
+  <div class="ambient-orb ambient-orb-2" style="background: radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, transparent 70%);"></div>
+
+  <nav class="navbar" style="background: #0f172a; border-bottom: 1px solid #1e293b; position: relative; z-index: 10;">
+    <div class="container navbar-inner">
+      <a href="index.html" class="logo" style="color: #ffffff;">
+        <div class="logo-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);"><i class="fas fa-university"></i></div>
+        <div class="logo-text">
+          <span class="logo-title" style="color: #fff;">College <span>Partner Portal</span></span>
+          <span class="logo-tagline" style="color: #94a3b8;">Official Institutional Access Only</span>
+        </div>
+      </a>
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <button class="theme-toggle-btn" onclick="Theme.toggle()" title="Toggle Dark/Light Mode" style="background: #1e293b; border-color: #334155; color: #cbd5e1;">
+          <i class="fas fa-moon text-primary"></i> <span class="theme-text">Dark</span>
+        </button>
+        <a href="index.html" class="btn btn-outline" style="border-color: #334155; color: #cbd5e1; font-size: 0.82rem;">
+          <i class="fas fa-arrow-left"></i> Student Website
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="auth-page-wrapper" style="flex: 1;">
+    <div class="auth-card college-auth-card fade-in-up">
+      <div class="auth-header">
+        <div class="logo-icon animate-float" style="background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35); color: white;">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <h2>College Admin Portal</h2>
+        <p>Restricted to verified college administrations to manage fee structures and student inquiries in real time.</p>
+      </div>
+
+      <div id="collegeLoginErrorAlert" class="auth-alert auth-alert-danger" style="display: none;">
+        <i class="fas fa-exclamation-circle"></i> <span id="collegeLoginErrorText">Invalid credentials or code</span>
+      </div>
+
+      <!-- Quick 1-Click College Demo Login Buttons -->
+      <div class="demo-credentials-box demo-college">
+        <div style="font-weight: 700; color: #b45309;"><i class="fas fa-bolt"></i> Verified College Admin Credentials:</div>
+        <div style="font-size: 0.8rem; color: #92400e; margin: 0.2rem 0 0.5rem;">Click to instantly test authenticated institutional access:</div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" onclick="loginDemoCollege('sri-chaitanya')">
+            <i class="fas fa-university"></i> Sri Chaitanya (SCJC)
+          </button>
+          <button type="button" onclick="loginDemoCollege('narayana')">
+            <i class="fas fa-university"></i> Narayana (NJC)
+          </button>
+          <button type="button" onclick="loginDemoCollege('page')">
+            <i class="fas fa-university"></i> PAGE Academy
+          </button>
+        </div>
+      </div>
+
+      <form id="collegeLoginForm" onsubmit="handleHardenedCollegeLogin(event)">
+        <div class="form-group">
+          <label class="form-label required"><i class="fas fa-barcode text-accent"></i> Official College Affiliation Code</label>
+          <input type="text" class="form-control" id="collegeCodeInput" required placeholder="e.g. SCJC-HYD-01">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label required"><i class="fas fa-envelope text-primary"></i> Administrator Email</label>
+          <input type="email" class="form-control" id="collegeEmailInput" required placeholder="admin@srichaitanya.edu">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label required"><i class="fas fa-lock text-primary"></i> Password</label>
+          <div class="password-field-wrapper">
+            <input type="password" class="form-control" id="collegePassInput" required placeholder="••••••••">
+            <button type="button" class="password-toggle-btn" onclick="togglePassVisibility('collegePassInput', this)" title="Show/Hide Password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-accent btn-block btn-lg btn-animated-shine" id="btnCollegeLoginSubmit" style="margin-top: 1rem;">
+          <i class="fas fa-lock-open"></i> Access College Management Suite
+        </button>
+      </form>
+
+      <div style="text-align: center; margin-top: 1.5rem; font-size: 0.88rem; color: var(--text-muted);">
+        Want to register a new college campus? <a href="college-signup.html" style="font-weight: 700; color: var(--accent-hover);">Register Institution &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer" style="padding: 2.5rem 0 1.5rem; margin-top: 0; background: #0f172a; border-top-color: #1e293b; color: #94a3b8;">
+    <div class="container">
+      <div class="footer-bottom" style="padding-top: 0; margin-top: 0; border-top: none; color: #94a3b8;">
+        <div>
+          &copy; 2026 Students Path Finder Institutional Portal. Authorized Personnel Only.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="index.html" style="color: #cbd5e1;">Student Website</a>
+          <a href="colleges.html" style="color: #cbd5e1;">Colleges</a>
+          <a href="student-login.html" style="color: #cbd5e1;">Student Sign In</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toastContainer" class="toast-container"></div>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    function togglePassVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.innerHTML = '<i class="fas fa-eye-slash"></i>';
+      } else {
+        input.type = 'password';
+        btn.innerHTML = '<i class="fas fa-eye"></i>';
+      }
+    }
+
+    function loginDemoCollege(type) {
+      if (type === 'sri-chaitanya') {
+        document.getElementById('collegeCodeInput').value = 'SCJC-HYD-01';
+        document.getElementById('collegeEmailInput').value = 'admin@srichaitanya.edu';
+        document.getElementById('collegePassInput').value = 'College@1234';
+      } else if (type === 'page') {
+        document.getElementById('collegeCodeInput').value = 'PAGE-HYD-02';
+        document.getElementById('collegeEmailInput').value = 'admin@pageacademy.com';
+        document.getElementById('collegePassInput').value = 'College@1234';
+      } else {
+        document.getElementById('collegeCodeInput').value = 'NJC-HYD-04';
+        document.getElementById('collegeEmailInput').value = 'admin.kphb@narayanagroup.com';
+        document.getElementById('collegePassInput').value = 'College@1234';
+      }
+      document.getElementById('collegeLoginErrorAlert').style.display = 'none';
+      document.getElementById('collegeLoginForm').dispatchEvent(new Event('submit'));
+    }
+
+    async function handleHardenedCollegeLogin(e) {
+      e.preventDefault();
+      const code = document.getElementById('collegeCodeInput').value;
+      const email = document.getElementById('collegeEmailInput').value;
+      const pass = document.getElementById('collegePassInput').value;
+      const btn = document.getElementById('btnCollegeLoginSubmit');
+      const errBox = document.getElementById('collegeLoginErrorAlert');
+      const errText = document.getElementById('collegeLoginErrorText');
+
+      errBox.style.display = 'none';
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying Credentials...';
+      btn.disabled = true;
+
+      const res = await Auth.loginCollege(email, code, pass);
+      if (res.success) {
+        btn.innerHTML = '<i class="fas fa-check"></i> Verified!';
+        if (typeof showToast === 'function') {
+          showToast('Welcome to College Portal, ' + res.user.name + '!', 'success');
+        }
+        setTimeout(() => {
+          window.location.href = 'college-dashboard.html';
+        }, 500);
+      } else {
+        btn.innerHTML = '<i class="fas fa-lock-open"></i> Access College Management Suite';
+        btn.disabled = false;
+        errText.innerText = res.error || 'Invalid credentials or code.';
+        errBox.style.display = 'flex';
+      }
+    }
+  </script>
+</body>
+</html>

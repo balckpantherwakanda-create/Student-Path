@@ -1,0 +1,376 @@
+/* ==========================================================================
+   Students Path Finder - Custom Animations & Keyframes
+   ========================================================================== */
+
+/* Toast Slide In */
+@keyframes toastSlideIn {
+  from {
+    transform: translateX(110%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Toast Slide Out */
+@keyframes toastSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(110%);
+    opacity: 0;
+  }
+}
+
+/* Ping / Radar Wave */
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Pulse Glow */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(37, 99, 235, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(37, 99, 235, 0.5);
+  }
+}
+
+/* Live Sync Flash: Flashes green when college updates fees */
+@keyframes liveSyncFlash {
+  0% {
+    background-color: #ecfdf5;
+    border-color: #10b981;
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.45);
+  }
+  50% {
+    background-color: #d1fae5;
+    border-color: #059669;
+    transform: scale(1.02);
+  }
+  100% {
+    background-color: var(--bg-subtle);
+    border-color: var(--border-color);
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
+
+.flash-live-sync {
+  animation: liveSyncFlash 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+/* Floating animation */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+/* Shimmer Loading Skeleton */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-box {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* Fade In Up Entrance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scale Pop */
+@keyframes scalePop {
+  0% {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.scale-pop {
+  animation: scalePop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Badge Glow */
+.badge-glow-live {
+  background: #10b981;
+  color: white;
+  animation: pulseGlow 2s infinite;
+}
+
+
+/* ==========================================================================
+   ENHANCED SIGNUP PAGE ANIMATIONS
+   ========================================================================== */
+
+/* Ambient Floating Blobs */
+@keyframes floatOrb1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(40px, -60px) scale(1.15);
+  }
+  66% {
+    transform: translate(-30px, 30px) scale(0.9);
+  }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-50px, 50px) scale(1.1);
+  }
+  66% {
+    transform: translate(35px, -40px) scale(0.95);
+  }
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.ambient-orb-1 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.45) 0%, rgba(139, 92, 246, 0.25) 100%);
+  top: 5%;
+  right: 5%;
+  animation: floatOrb1 14s ease-in-out infinite;
+}
+
+.ambient-orb-2 {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(239, 68, 68, 0.2) 100%);
+  bottom: 8%;
+  left: 5%;
+  animation: floatOrb2 16s ease-in-out infinite;
+}
+
+.ambient-orb-3 {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, rgba(6, 182, 212, 0.2) 100%);
+  top: 45%;
+  left: 20%;
+  animation: floatOrb1 18s ease-in-out infinite reverse;
+}
+
+/* Staggered form field entrance */
+.stagger-1 { animation: fadeInUp 0.5s ease 0.1s both; }
+.stagger-2 { animation: fadeInUp 0.5s ease 0.2s both; }
+.stagger-3 { animation: fadeInUp 0.5s ease 0.3s both; }
+.stagger-4 { animation: fadeInUp 0.5s ease 0.4s both; }
+.stagger-5 { animation: fadeInUp 0.5s ease 0.5s both; }
+.stagger-6 { animation: fadeInUp 0.5s ease 0.6s both; }
+
+/* Interactive Stream Choice Pills */
+.stream-select-pills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+}
+
+.stream-pill-option {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  user-select: none;
+}
+
+.stream-pill-option:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.15);
+}
+
+.stream-pill-option.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 700;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+}
+
+/* Password Strength Bar Animation */
+.password-strength-container {
+  margin-top: 0.5rem;
+}
+
+.strength-bar-track {
+  height: 6px;
+  width: 100%;
+  background: var(--border-subtle);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.4rem;
+}
+
+.strength-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 3px;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease;
+}
+
+.strength-requirements {
+  display: flex;
+  gap: 0.85rem;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.strength-req-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.25s ease;
+}
+
+.strength-req-item.met {
+  color: var(--success-dark);
+  font-weight: 700;
+}
+
+.strength-req-item.met i {
+  animation: scalePop 0.3s ease;
+}
+
+/* Button Shine Sweep Animation */
+@keyframes shineSweep {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+.btn-animated-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-animated-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-25deg);
+  animation: shineSweep 4s infinite;
+}
+
+/* Live Scholarship Floating Alert */
+.live-scholarship-hint {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border: 1px solid #6ee7b7;
+  color: #065f46;
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 0.65rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  animation: scalePop 0.35s ease;
+}
+
+[data-theme="dark"] .live-scholarship-hint {
+  background: #064e3b;
+  border-color: #059669;
+  color: #a7f3d0;
+}
+
+/* Avatar Live Selector */
+.avatar-selection-row {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin: 1.25rem 0;
+}
+
+.avatar-opt {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.avatar-opt:hover {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.avatar-opt.selected {
+  border-color: var(--primary);
+  transform: scale(1.2);
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+}
